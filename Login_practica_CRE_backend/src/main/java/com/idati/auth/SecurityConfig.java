@@ -1,4 +1,4 @@
-package com.idati.config;
+package com.idati.auth;
 
 import lombok.RequiredArgsConstructor;
 import static org.springframework.security.config.Customizer.withDefaults;
