@@ -1,5 +1,7 @@
 package com.idati.usuario;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,26 +9,43 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@RequiredArgsConstructor
 public class UsuarioRestController {
-
-    private final UsuarioService usuarioService;
-
-    public UsuarioRestController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    private final UsuarioService service;
+    
+    @PostMapping
+    public ResponseEntity<UsuarioEntity> crear(@RequestBody UsuarioEntity request) {
+        UsuarioEntity creado = service.crearUsuario(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
-
-    // GET: Listar todos los usuarios (para la tabla)
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioEntity> actualizar(
+            @PathVariable Integer id,
+            @RequestBody UsuarioEntity request
+    ) {
+        UsuarioEntity actualizado = service.actualizarUsuario(id, request);
+        return ResponseEntity.ok(actualizado);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable Integer id) {
+        service.eliminarUsuario(id);
+        return ResponseEntity.ok("UsuarioEntity eliminado correctamente");
+    }
+    
     @GetMapping
-    public ResponseEntity<List<UsuarioEntity>> listarUsuarios() {
-        List<UsuarioEntity> usuarios = usuarioService.listarUsuarios();
-        return ResponseEntity.ok(usuarios);
+    public ResponseEntity<List<UsuarioEntity>> listar() {
+        List<UsuarioEntity> lista = service.listarUsuarios();
+        if(lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(lista);
     }
-
-    // GET: Obtener usuario por ID (opcional)
+    
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioEntity> obtenerPorId(@PathVariable Integer id) {
-        return usuarioService.obtenerUsuarioPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<UsuarioEntity> obtener(@PathVariable Integer id) {
+        UsuarioEntity usuario = service.obtenerUsuarioPorId(id);
+        return ResponseEntity.ok(usuario);
     }
 }

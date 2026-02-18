@@ -25,7 +25,7 @@ public class RolEntity implements Serializable {
     private Integer id;
     
     @Column(unique = true, nullable = false, length = 32)
-    private String rol_nombre;
+    private String rolNombre;
     
     @Column(length = 128)
     private String descripcion;
