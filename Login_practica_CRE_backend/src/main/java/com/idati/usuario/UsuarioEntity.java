@@ -1,5 +1,6 @@
 package com.idati.usuario;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +32,7 @@ public class UsuarioEntity implements Serializable {
     private String correoElectronico;
     
     @Column(nullable = false, length = 128)
+    @JsonIgnore
     private String contrasena;
 
     @Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
