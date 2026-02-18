@@ -1,6 +1,6 @@
 package com.idati.usuario;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.idati.usuarioRol.UsuarioRolEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +17,6 @@ import java.util.Set;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "usuarios")
-
 public class UsuarioEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -32,7 +31,6 @@ public class UsuarioEntity implements Serializable {
     private String correoElectronico;
     
     @Column(nullable = false, length = 128)
-    @JsonIgnore
     private String contrasena;
 
     @Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
@@ -50,4 +48,7 @@ public class UsuarioEntity implements Serializable {
     @Column(name = "fecha_alta", insertable = false, updatable = false)
     private LocalDateTime fechaAlta;
     private LocalDateTime fechaBaja;
+    
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UsuarioRolEntity> usuarioRoles;
 }
