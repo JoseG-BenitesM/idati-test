@@ -14,7 +14,7 @@ export class RestContra {
   correo: string = '';
   mensajeExito: boolean = false;
 
-   @ViewChild('btnLogin') btnLogin!: ElementRef<HTMLButtonElement>;
+  @ViewChild('btnLogin') btnLogin!: ElementRef<HTMLButtonElement>;
   
   constructor(private router: Router){}
 

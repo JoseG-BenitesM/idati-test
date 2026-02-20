@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class Login implements OnInit {
   showPassword: boolean = false;
   submitted: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -32,6 +32,7 @@ export class Login implements OnInit {
     this.submitted = true;
     if (this.loginForm.valid) {
       console.log('Datos válidos:', this.loginForm.value);
+      this.router.navigate(['/usuarios']);
     } else {
       this.loginForm.markAllAsTouched();
     }
