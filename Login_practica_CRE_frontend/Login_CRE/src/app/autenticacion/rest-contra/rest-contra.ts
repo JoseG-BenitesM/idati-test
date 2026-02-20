@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModel, FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,15 +10,21 @@ import { Router } from '@angular/router';
   styleUrl: './rest-contra.css',
 })
 export class RestContra {
-
   correo: string = '';
   mensajeExito: boolean = false;
+  mostrarErrores: boolean = false;
 
   @ViewChild('btnLogin') btnLogin!: ElementRef<HTMLButtonElement>;
   
   constructor(private router: Router){}
 
-  solicitar(){
+  solicitar(form: NgForm){
+    this.mostrarErrores = true;
+
+    if (form.invalid) {
+      return;
+    }
+
     console.log('solicitud enviada: ', this.correo);
     this.mensajeExito = true;
 
@@ -35,5 +41,14 @@ export class RestContra {
     if (this.mensajeExito && this.btnLogin) {
       this.btnLogin.nativeElement.focus();
     }
+  }
+
+  getEmailErrorMessage(input: NgModel): string {
+
+    if (input.errors?.['required']) return '¡Atención! El correo es obligatorio.';
+    
+    if (input.errors?.['email']) {return 'Por favor, ingresa un correo válido.'}
+
+    return '';
   }
 }
