@@ -1,4 +1,4 @@
-package com.idati.auth;
+package com.example.demo.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

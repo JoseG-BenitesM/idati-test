@@ -1,4 +1,4 @@
-package com.idati.usuarioRol;
+package com.example.demo.usuarioRol;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UsuarioRolResponseDTO {
-    private Integer idUsuario;
-    private String nombreUsuario;
-    private String rol;
+public class UsuarioRolRequestDTO {
     private String accion;
-    private String mensaje;
+    private Integer idUsuario;
+    private Integer idRol;
 }
+

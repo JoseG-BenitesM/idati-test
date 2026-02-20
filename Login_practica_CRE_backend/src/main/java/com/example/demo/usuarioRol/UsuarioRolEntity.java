@@ -1,7 +1,7 @@
-package com.idati.usuarioRol;
+package com.example.demo.usuarioRol;
 
-import com.idati.rol.RolEntity;
-import com.idati.usuario.UsuarioEntity;
+import com.example.demo.rol.RolEntity;
+import com.example.demo.usuario.UsuarioEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(onlyExplicitlyIncluded = true)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "usuarios_roles", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"id_usuario", "id_rol"})})
@@ -31,11 +29,13 @@ public class UsuarioRolEntity implements Serializable {
     @JsonIgnore
     private UsuarioEntity usuario;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_rol", nullable = false)
     @JsonIgnore
     private RolEntity rol;
     
+    // CORRECCIÓN: Se añade nullable = false e insertable/updatable false 
+    // porque normalmente es un TIMESTAMP con DEFAULT CURRENT_TIMESTAMP
+    @Column(name = "fecha_asignacion", nullable = false, insertable = false, updatable = false)
     private LocalDateTime fechaAsignacion;
-    
 }

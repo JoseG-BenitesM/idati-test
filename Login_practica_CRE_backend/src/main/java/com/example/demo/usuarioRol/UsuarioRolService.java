@@ -1,4 +1,4 @@
-package com.idati.usuarioRol;
+package com.example.demo.usuarioRol;
 
 import java.util.List;
 
@@ -15,3 +15,4 @@ public interface UsuarioRolService {
     // Elimina una asignación usuario-rol
     UsuarioRolResponseDTO eliminar(Integer idUsuario, Integer idRol);
 }
+

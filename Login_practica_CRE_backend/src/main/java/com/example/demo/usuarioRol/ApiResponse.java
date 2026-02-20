@@ -1,4 +1,4 @@
-package com.idati.usuarioRol;
+package com.example.demo.usuarioRol;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

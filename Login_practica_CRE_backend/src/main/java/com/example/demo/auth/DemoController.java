@@ -1,4 +1,4 @@
-package com.idati.auth;
+package com.example.demo.auth;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

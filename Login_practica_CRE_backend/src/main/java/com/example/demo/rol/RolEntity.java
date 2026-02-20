@@ -1,6 +1,7 @@
-package com.idati.rol;
+package com.example.demo.rol;
 
-import com.idati.usuarioRol.UsuarioRolEntity;
+// CORRECCIÓN: Import de UsuarioRolEntity corregido
+import com.example.demo.usuarioRol.UsuarioRolEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,8 +14,6 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(onlyExplicitlyIncluded = true)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "roles")
 public class RolEntity implements Serializable {

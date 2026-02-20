@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
 );
 
 INSERT INTO usuarios (usuario_nombre, correo_electronico, contrasena) VALUES
-('admin_01', 'admin01@empresa.com', '$2a$10$NSgY5kwZkYt8QKUnDpvzGOl0AbIRelb8lh3GwftdkOzxgfARN1KC.'),   -- pwd: admin_123
+('admin_01', 'admin01@empresa.com', '$2a$10$k8uxbPU3O0UZ8/bRmRQ2gO1BC6/ibVW7HZZtxiBo3MqDQLwI8dKS6'),   -- pwd: admin_123
 ('usuario_02', 'usuario02@empresa.com', '$2a$10$tdEG.LOb.EUwi6sH9U/VbehoCOtaFXPCy2RUlHPT.JWD5J4wfW/fy'), -- pwd: usuario_123
 ('usuario_03', 'usuario03@empresa.com', '$2a$10$dD4rOJmMmy/2yILJbiMet.TAefxSWM5U/Y7RsRASsy.aX/bF0gftC'), -- pwd: usuario_456
 ('usuario_04', 'usuario04@empresa.com', '$2a$10$yBktNscCkRfzx9rsDOab.OyaS4f21aynN6Huy4hqrGbiEEobdhqCq'); -- pwd: usuario_789

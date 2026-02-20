@@ -1,4 +1,4 @@
-package com.idati.rol;
+package com.example.demo.rol;
 
 import java.util.List;
 

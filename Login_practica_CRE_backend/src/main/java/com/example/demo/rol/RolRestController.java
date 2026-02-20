@@ -1,4 +1,4 @@
-package com.idati.rol;
+package com.example.demo.rol;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
