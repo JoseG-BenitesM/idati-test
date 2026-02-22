@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { LoginAuthService } from '../seguridad/servicios/login_auth/login-auth-service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class Login implements OnInit {
   showPassword: boolean = false;
   submitted: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private LGSV: LoginAuthService) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -30,12 +31,50 @@ export class Login implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    if (this.loginForm.valid) {
-      console.log('Datos válidos:', this.loginForm.value);
-      this.router.navigate(['/usuarios']);
+    
+    if (this.loginForm.valid){
+      const { email, password } = this.loginForm.value;
+
+      this.LGSV.login({
+        correoElectronico: email,
+        contrasena: password
+      }).subscribe({
+        next: (response/*quitar despues*/) => {
+          //console.log('Datos válidos:', this.loginForm.value);
+          console.log(response);/*quitar despues*/
+          this.router.navigate(['/usuarios'])
+        },
+        error: () => {
+          alert('Credenciales incorrectas');
+          this.loginForm.reset();
+          this.submitted = false;
+        }
+      });
     } else {
       this.loginForm.markAllAsTouched();
     }
+
+  }
+
+  getToken(): string | null {
+    return sessionStorage.getItem('token');
+  }
+
+  getUsername(): string | null {
+    return sessionStorage.getItem('usuario');
+  }
+
+  getRoles(): string[] {
+    const roles = sessionStorage.getItem('roles');
+    return roles ? JSON.parse(roles) : [];
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  logout(): void {
+    sessionStorage.clear();
   }
 
   getEmailErrorMessage(): string {
@@ -54,4 +93,7 @@ export class Login implements OnInit {
 
     return 'Por favor, ingresa un correo válido.';
   }
+  
 }
+
+
