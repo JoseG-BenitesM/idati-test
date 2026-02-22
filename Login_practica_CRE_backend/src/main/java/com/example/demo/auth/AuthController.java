@@ -1,5 +1,6 @@
 package com.example.demo.auth;
 
+import java.util.Map;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +13,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login") // Ruta: http://localhost:8080/auth/login
-    public String login(@RequestBody LoginRequest request) {
+    public Map<String, String> login(@RequestBody LoginRequest request) {
         return authService.login(request);
     }
     

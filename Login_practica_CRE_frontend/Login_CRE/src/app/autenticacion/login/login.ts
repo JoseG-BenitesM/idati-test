@@ -45,6 +45,9 @@ export class Login implements OnInit {
           this.router.navigate(['/usuarios'])
         },
         error: () => {
+          /*console.log("ERROR COMPLETO:", err);
+          console.log("Status:", err.status);
+          console.log("Error body:", err.error);*/
           alert('Credenciales incorrectas');
           this.loginForm.reset();
           this.submitted = false;
