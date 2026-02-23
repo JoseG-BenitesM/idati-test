@@ -11,4 +11,8 @@ public interface UsuarioService {
     // Lo que no usamos pero igual lo pongo pq no sé si afectará o no
     UsuarioEntity crearUsuario(UsuarioEntity usuario);
     void eliminarUsuario(Integer id);
+    
+    // RF-07 / RF-08
+    UsuarioEntity bloquearUsuario(Integer id);
+    UsuarioEntity desbloquearUsuario(Integer id);
 }

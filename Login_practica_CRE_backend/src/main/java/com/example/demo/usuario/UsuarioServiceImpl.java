@@ -49,4 +49,23 @@ public class UsuarioServiceImpl implements UsuarioService {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("UsuarioEntity no encontrado con id " + id));
     }
+    
+    @Override
+    @Transactional
+    public UsuarioEntity bloquearUsuario(Integer id) {
+        UsuarioEntity usuario = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id " + id));
+        usuario.setEstadoUsuario((byte) 0); // 0 = bloqueado
+        return repository.save(usuario);
+    }
+    
+    @Override
+    @Transactional
+    public UsuarioEntity desbloquearUsuario(Integer id) {
+        UsuarioEntity usuario = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id " + id));
+        usuario.setEstadoUsuario((byte) 1); // 1 = activo
+        usuario.setIntentosFallidos((byte) 0); // resetear intentos
+        return repository.save(usuario);
+    }
 }

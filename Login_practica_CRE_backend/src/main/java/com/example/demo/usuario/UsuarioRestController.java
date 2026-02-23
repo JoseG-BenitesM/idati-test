@@ -34,6 +34,14 @@ public class UsuarioRestController {
         return ResponseEntity.ok("UsuarioEntity eliminado correctamente");
     }
     
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioEntity> obtener(@PathVariable Integer id) {
+        UsuarioEntity usuario = service.obtenerUsuarioPorId(id);
+        return ResponseEntity.ok(usuario);
+    }
+    
+    // Solo ADMIN puede listar (lo proteges con Spring Security en el SecurityConfig)
     @GetMapping
     public ResponseEntity<List<UsuarioEntity>> listar() {
         List<UsuarioEntity> lista = service.listarUsuarios();
@@ -43,9 +51,15 @@ public class UsuarioRestController {
         return ResponseEntity.ok(lista);
     }
     
-    @GetMapping("/{id}")
-    public ResponseEntity<UsuarioEntity> obtener(@PathVariable Integer id) {
-        UsuarioEntity usuario = service.obtenerUsuarioPorId(id);
-        return ResponseEntity.ok(usuario);
+    // RF-08: Admin bloquea
+    @PatchMapping("/{id}/bloquear")
+    public ResponseEntity<UsuarioEntity> bloquear(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.bloquearUsuario(id));
+    }
+    
+    // RF-08: Admin desbloquea
+    @PatchMapping("/{id}/desbloquear")
+    public ResponseEntity<UsuarioEntity> desbloquear(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.desbloquearUsuario(id));
     }
 }
