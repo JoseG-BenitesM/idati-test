@@ -36,9 +36,12 @@ public class WebSecurityConfig {
                 .cors(cors -> {
                 })
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll() // Login y Registro libres
-                        .requestMatchers("/api/usuarios/**").hasAuthority("ROLE_ADMIN") // solo admin
-                        .anyRequest().authenticated()           // El resto pide login
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/solicitudes/solicitar").permitAll()    // usuario solicita
+                        .requestMatchers("/api/solicitudes/restablecer").permitAll()  // usuario restablece
+                        .requestMatchers("/api/solicitudes/**").hasAuthority("ROLE_ADMIN") // admin gestiona
+                        .requestMatchers("/api/usuarios/**").hasAuthority("ROLE_ADMIN")
+                        .anyRequest().authenticated()
                 )
                 // --- AQUÍ RECUPERAMOS EL FORMULARIO ---
                 //.formLogin(Customizer.withDefaults())

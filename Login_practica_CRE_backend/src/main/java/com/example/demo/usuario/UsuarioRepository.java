@@ -12,5 +12,4 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer>
     
     Optional<UsuarioEntity> findByUsuarioNombre(String usuarioNombre);
     
-    Optional<UsuarioEntity> findByTokenRecuperacion(String token);
 }

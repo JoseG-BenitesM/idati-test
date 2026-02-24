@@ -1,0 +1,179 @@
+{
+  "info": {
+    "_postman_id": "af6d6bcf-ebb9-43d9-9fe6-427e23b8fce9",
+    "name": "Pruebas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43792032"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"correoElectronico\": \"usuario03@empresa.com\",\r\n  \"contrasena\": \"nueva_123\"\r\n}\r\n/*\r\n{\r\n  \"correoElectronico\": \"usuario02@empresa.com\",\r\n  \"contrasena\": \"usuario_123\"\r\n}\r\n\r\n\r\n{\r\n  \"correoElectronico\": \"\",\r\n  \"contrasena\": \"\"\r\n}\r\n\r\n\r\n{\r\n  \"correoElectronico\": \"usuario02@empresa.com\",\r\n  \"contrasena\": \"nueva_123\"\r\n}\r\n\r\n*/",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Consultas usuarios",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0dFUkVOVEUiLCJzdWIiOiJ1c3VhcmlvMDJAZW1wcmVzYS5jb20iLCJpYXQiOjE3NzE4OTIwNjcsImV4cCI6MTc3MTg5NTY2N30.62N06eTDwlOBRXXwv_j3Av2OFDaUin22BFfVMI_sBzw",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Desbloquear",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTg5MzA0MCwiZXhwIjoxNzcxODk2NjQwfQ.Q60F6Y11x2zNrY5HfxOYMA6gUYEV1sF3kqbrcer0Fr0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/3/desbloquear",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "3",
+            "desbloquear"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Bloquear",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTg5MzA0MCwiZXhwIjoxNzcxODk2NjQwfQ.Q60F6Y11x2zNrY5HfxOYMA6gUYEV1sF3kqbrcer0Fr0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/3/bloquear",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "3",
+            "bloquear"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "recuperar token",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"correo\": \"usuario03@empresa.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/recuperar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "recuperar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "restablecer token",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\": \"fce959b4-16f8-4f31-ba62-93c290b52106\",\r\n  \"nuevaContrasena\": \"nueva_123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/restablecer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "restablecer"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -16,8 +16,6 @@ CREATE TABLE IF NOT EXISTS usuarios (
     estado_usuario TINYINT NOT NULL DEFAULT 1 CHECK (estado_usuario IN (0,1)),
     intentos_fallidos TINYINT DEFAULT 0,
     fecha_ultimo_intento DATETIME NULL,
-    token_recuperacion VARCHAR(64) NULL,
-    fecha_tkn_expiracion DATETIME NULL,
     fecha_alta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_baja DATETIME NULL
 );
@@ -64,3 +62,22 @@ ALTER TABLE usuarios_roles
 
 -- Índice para búsquedas rápidas de roles asignados a un usuario específico.
 CREATE INDEX idx_usuarios_roles_usuario ON usuarios_roles(id_usuario);
+
+-- TABLA: solicitudes_recuperacion
+-- Relaciona las situaciones de recuperaciones hechas por los usuarios
+CREATE TABLE IF NOT EXISTS solicitudes_recuperacion (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT NOT NULL,
+    codigo VARCHAR(6) NOT NULL,
+    fecha_solicitud DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_uso DATETIME NULL,
+    estado TINYINT DEFAULT 0
+    -- 0 = pendiente
+    -- 1 = aprobada por admin
+    -- 2 = usada por usuario
+    -- 3 = expirada
+);
+
+ALTER TABLE solicitudes_recuperacion
+    ADD CONSTRAINT fk_solicitud_usuario 
+        FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE;
