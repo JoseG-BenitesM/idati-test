@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 
 export interface Usuario {
   id: number;
-  usuario_nombre: string;
-  correo_electronico: string;
-  estado_usuario: string;
-  intentos_fallidos: number;
+  usuarioNombre: string;
+  correoElectronico: string;
+  estadoUsuario: string;
+  intentosFallidos: number;
 }
 
 @Injectable({

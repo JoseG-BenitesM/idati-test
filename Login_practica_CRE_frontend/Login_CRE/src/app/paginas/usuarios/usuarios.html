@@ -1,31 +1,35 @@
-<!-- PARA EL USUARIO ADMINISTRADOR: Mostraría toda la información de los usuarios y los botones para restablecer la cuenta -->
 <div class="container">
   <h2>Lista de Usuarios</h2>
+  <button>Cerrar sesión</button>
 
-  <!-- Tabla de usuarios -->
-  <table *ngIf="!cargando && listaUsuarios.length > 0" class="tabla">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Usuario</th>
-        <th>Correo Electrónico</th>
-        <th>Estado</th>
-        <th>Intentos Fallidos</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let usuario of listaUsuarios">
-        <td>{{ usuario.id }}</td>
-        <td>{{ usuario.usuarioNombre }}</td>
-        <td>{{ usuario.correoElectronico }}</td>
-        <td>{{ usuario.estadoUsuario }}</td>
-        <td>{{ usuario.intentosFallidos }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <ng-container *ngIf="listaUsuarios$ | async as usuarios; else cargandoTemplate">
+    
+    <table class="tabla" *ngIf="usuarios.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Correo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.id }}</td>
+          <td>{{ usuario.usuarioNombre }}</td>
+          <td>{{ usuario.correoElectronico }}</td>
+          <td><button>Desbloquear</button></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- Si no hay registros -->
-  <div *ngIf="!cargando && listaUsuarios.length === 0">
-    No hay usuarios registrados.
-  </div>
+    <div *ngIf="usuarios.length === 0">
+      No hay usuarios registrados.
+    </div>
+
+  </ng-container>
+
+  <ng-template #cargandoTemplate>
+    <div *ngIf="!error">Cargando usuarios desde el servidor...</div>
+    <div *ngIf="error" style="color: red;">{{ error }}</div>
+  </ng-template>
 </div>
