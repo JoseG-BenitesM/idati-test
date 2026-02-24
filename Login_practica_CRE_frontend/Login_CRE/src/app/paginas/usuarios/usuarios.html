@@ -1,3 +1,31 @@
 <!-- PARA EL USUARIO ADMINISTRADOR: Mostraría toda la información de los usuarios y los botones para restablecer la cuenta -->
+<div class="container">
+  <h2>Lista de Usuarios</h2>
 
-<p>usuarios works!</p>
+  <!-- Tabla de usuarios -->
+  <table *ngIf="!cargando && listaUsuarios.length > 0" class="tabla">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Correo Electrónico</th>
+        <th>Estado</th>
+        <th>Intentos Fallidos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of listaUsuarios">
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.usuario_nombre }}</td>
+        <td>{{ usuario.correo_electronico }}</td>
+        <td>{{ usuario.estado_usuario }}</td>
+        <td>{{ usuario.intentos_fallidos }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Si no hay registros -->
+  <div *ngIf="!cargando && listaUsuarios.length === 0">
+    No hay usuarios registrados.
+  </div>
+</div>
