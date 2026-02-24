@@ -39,9 +39,8 @@ export class Login implements OnInit {
         correoElectronico: email,
         contrasena: password
       }).subscribe({
-        next: (response/*quitar despues*/) => {
-          //console.log('Datos válidos:', this.loginForm.value);
-          console.log(response);/*quitar despues*/
+        next: () => {
+          console.log('Datos válidos:', this.loginForm.value);
           this.router.navigate(['/usuarios'])
         },
         error: () => {
@@ -56,7 +55,6 @@ export class Login implements OnInit {
     } else {
       this.loginForm.markAllAsTouched();
     }
-
   }
 
   getToken(): string | null {
