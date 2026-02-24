@@ -15,6 +15,8 @@ export class Login implements OnInit {
   loginForm!: FormGroup;
   showPassword: boolean = false;
   submitted: boolean = false;
+  mostrarModalBloqueo: boolean = false;
+  mensaje: string = '';
 
   constructor(private fb: FormBuilder, private router: Router, private LGSV: LoginAuthService) {}
 
@@ -30,29 +32,34 @@ export class Login implements OnInit {
   }
 
   onSubmit(): void {
-  this.submitted = true;
-  
-  if (this.loginForm.valid) {
-    const { email, password } = this.loginForm.value;
+    this.submitted = true;
+    
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
 
-    this.LGSV.login({
-      correoElectronico: email,
-      contrasena: password
-    }).subscribe({
-      next: () => {
-        this.router.navigate(['/usuarios']);
-      },
-      error: (err) => {
-        console.error("Error en login:", err);
-        alert('Credenciales incorrectas o error de servidor');
-        this.loginForm.reset();
-        this.submitted = false;
-      }
-    });
-  } else {
-    this.loginForm.markAllAsTouched();
+      this.LGSV.login({
+        correoElectronico: email,
+        contrasena: password
+      }).subscribe({
+        next: () => {
+          this.router.navigate(['/usuarios']);
+        },
+        error: (err) => {
+          if(err.status === 423){
+            this.mensaje = err.error?.error || 'cuenta bloqueada';
+            this.mostrarModalBloqueo = true;
+          }else{
+            console.error("Error en login:", err);
+            alert('Credenciales incorrectas o error de servidor');
+          }
+          this.loginForm.reset();
+          this.submitted = false;
+        }
+      });
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
   }
-}
 
   getToken(): string | null {
     return sessionStorage.getItem('token');
