@@ -7,13 +7,13 @@
   },
   "item": [
     {
-      "name": "Login",
+      "name": "Todos -Login",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"correoElectronico\": \"usuario03@empresa.com\",\r\n  \"contrasena\": \"nueva_123\"\r\n}\r\n/*\r\n{\r\n  \"correoElectronico\": \"usuario02@empresa.com\",\r\n  \"contrasena\": \"usuario_123\"\r\n}\r\n\r\n\r\n{\r\n  \"correoElectronico\": \"\",\r\n  \"contrasena\": \"\"\r\n}\r\n\r\n\r\n{\r\n  \"correoElectronico\": \"usuario02@empresa.com\",\r\n  \"contrasena\": \"nueva_123\"\r\n}\r\n\r\n*/",
+          "raw": "{\r\n  \"correoElectronico\": \"admin_01\",\r\n  \"contrasena\": \"admin_123\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -36,13 +36,13 @@
       "response": []
     },
     {
-      "name": "Consultas usuarios",
+      "name": "Admin - Consultas usuarios",
       "request": {
         "method": "GET",
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0dFUkVOVEUiLCJzdWIiOiJ1c3VhcmlvMDJAZW1wcmVzYS5jb20iLCJpYXQiOjE3NzE4OTIwNjcsImV4cCI6MTc3MTg5NTY2N30.62N06eTDwlOBRXXwv_j3Av2OFDaUin22BFfVMI_sBzw",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTg5NDUyMSwiZXhwIjoxNzcxODk4MTIxfQ.YtWEl217-Na4MaBvcgWfN7nONUEP4jYooBInCJ8qGlQ",
             "type": "text"
           }
         ],
@@ -62,7 +62,34 @@
       "response": []
     },
     {
-      "name": "Desbloquear",
+      "name": "Admin - Consultar listas pendientes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0dFUkVOVEUiLCJzdWIiOiJ1c3VhcmlvMDJAZW1wcmVzYS5jb20iLCJpYXQiOjE3NzE4OTIwNjcsImV4cCI6MTc3MTg5NTY2N30.62N06eTDwlOBRXXwv_j3Av2OFDaUin22BFfVMI_sBzw",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/solicitudes/pendientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "solicitudes",
+            "pendientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin - Desbloquear",
       "request": {
         "method": "PATCH",
         "header": [
@@ -90,7 +117,7 @@
       "response": []
     },
     {
-      "name": "Bloquear",
+      "name": "Admin - Bloquear",
       "request": {
         "method": "PATCH",
         "header": [
@@ -118,13 +145,13 @@
       "response": []
     },
     {
-      "name": "recuperar token",
+      "name": "Usuarios - recuperar contraseña",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"correo\": \"usuario03@empresa.com\"\r\n}",
+          "raw": "{\r\n    \"correoOUsuario\": \"usuario02@empresa.com\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -132,28 +159,35 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/auth/recuperar",
+          "raw": "http://localhost:8080/api/solicitudes/solicitar",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "auth",
-            "recuperar"
+            "api",
+            "solicitudes",
+            "solicitar"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "restablecer token",
+      "name": "Admin - Aprobar recuperaciones",
       "request": {
-        "method": "POST",
-        "header": [],
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTkwMzMwNSwiZXhwIjoxNzcxOTA2OTA1fQ.3cV8S-KRQRRIv4fEnPoAsyUx94NPk-pc33A7f2vH6zw",
+            "type": "text"
+          }
+        ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"token\": \"fce959b4-16f8-4f31-ba62-93c290b52106\",\r\n  \"nuevaContrasena\": \"nueva_123\"\r\n}",
+          "raw": "",
           "options": {
             "raw": {
               "language": "json"
@@ -161,14 +195,46 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/auth/restablecer",
+          "raw": "http://localhost:8080/api/solicitudes/1/aprobar",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "auth",
+            "api",
+            "solicitudes",
+            "1",
+            "aprobar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Usuarios - restablecer contraseña",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"codigo\": \"842212\",\r\n    \"nuevaContrasena\": \"nueva_123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/solicitudes/restablecer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "solicitudes",
             "restablecer"
           ]
         }
