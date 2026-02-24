@@ -39,21 +39,8 @@ export class Login implements OnInit {
       correoElectronico: email,
       contrasena: password
     }).subscribe({
-      next: (response: any) => { // Usamos any o una interfaz para acceder a .token
-        console.log('Respuesta del servidor:', response);
-
-        if (response && response.token) {
-          // 1. GUARDAR EL TOKEN (Esto es lo que te faltaba)
-          localStorage.setItem('token', response.token);
-          
-          // Opcional: Guardar el usuario si tu API lo envía
-          // localStorage.setItem('usuario', email); 
-
-          console.log('Token almacenado con éxito.');
-          this.router.navigate(['/usuarios']);
-        } else {
-          console.error('La respuesta no contiene un token:', response);
-        }
+      next: () => {
+        this.router.navigate(['/usuarios']);
       },
       error: (err) => {
         console.error("Error en login:", err);
@@ -68,15 +55,15 @@ export class Login implements OnInit {
 }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   getUsername(): string | null {
-    return localStorage.getItem('usuario');
+    return sessionStorage.getItem('usuario');
   }
 
   getRoles(): string[] {
-    const roles = localStorage.getItem('roles');
+    const roles = sessionStorage.getItem('rol');
     return roles ? JSON.parse(roles) : [];
   }
 
