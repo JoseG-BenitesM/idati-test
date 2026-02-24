@@ -1,5 +1,5 @@
-/*export interface LoginAuthInterface {
+export interface LoginAuthInterface {
+    rol: string;
     token: string; 
-    correoElectronico: string; 
-    roles: string[];
-}*/
+    usuario: string; 
+}

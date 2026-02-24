@@ -30,45 +30,53 @@ export class Login implements OnInit {
   }
 
   onSubmit(): void {
-    this.submitted = true;
-    
-    if (this.loginForm.valid){
-      const { email, password } = this.loginForm.value;
+  this.submitted = true;
+  
+  if (this.loginForm.valid) {
+    const { email, password } = this.loginForm.value;
 
-      this.LGSV.login({
-        correoElectronico: email,
-        contrasena: password
-      }).subscribe({
-        next: (response/*quitar despues*/) => {
-          //console.log('Datos válidos:', this.loginForm.value);
-          console.log(response);/*quitar despues*/
-          this.router.navigate(['/usuarios'])
-        },
-        error: () => {
-          /*console.log("ERROR COMPLETO:", err);
-          console.log("Status:", err.status);
-          console.log("Error body:", err.error);*/
-          alert('Credenciales incorrectas');
-          this.loginForm.reset();
-          this.submitted = false;
+    this.LGSV.login({
+      correoElectronico: email,
+      contrasena: password
+    }).subscribe({
+      next: (response: any) => { // Usamos any o una interfaz para acceder a .token
+        console.log('Respuesta del servidor:', response);
+
+        if (response && response.token) {
+          // 1. GUARDAR EL TOKEN (Esto es lo que te faltaba)
+          localStorage.setItem('token', response.token);
+          
+          // Opcional: Guardar el usuario si tu API lo envía
+          // localStorage.setItem('usuario', email); 
+
+          console.log('Token almacenado con éxito.');
+          this.router.navigate(['/usuarios']);
+        } else {
+          console.error('La respuesta no contiene un token:', response);
         }
-      });
-    } else {
-      this.loginForm.markAllAsTouched();
-    }
-
+      },
+      error: (err) => {
+        console.error("Error en login:", err);
+        alert('Credenciales incorrectas o error de servidor');
+        this.loginForm.reset();
+        this.submitted = false;
+      }
+    });
+  } else {
+    this.loginForm.markAllAsTouched();
   }
+}
 
   getToken(): string | null {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   }
 
   getUsername(): string | null {
-    return sessionStorage.getItem('usuario');
+    return localStorage.getItem('usuario');
   }
 
   getRoles(): string[] {
-    const roles = sessionStorage.getItem('roles');
+    const roles = localStorage.getItem('roles');
     return roles ? JSON.parse(roles) : [];
   }
 
@@ -77,7 +85,7 @@ export class Login implements OnInit {
   }
 
   logout(): void {
-    sessionStorage.clear();
+    localStorage.clear();
   }
 
   getEmailErrorMessage(): string {

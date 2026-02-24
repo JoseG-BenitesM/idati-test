@@ -1,27 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-//import { LoginAuthInterface } from './login-auth-interface';
+import { LoginAuthInterface } from './login-auth-interface';
+import { environment } from '../../direcciones/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginAuthService {
 
-  private url = 'http://localhost:8080/auth';
+  private url = `${environment.authUrl}`;
 
   constructor(private http: HttpClient){}
 
-  login(credenciales: {correoElectronico: string; contrasena: string}): Observable</*LoginAuthInterface*/string>{
+  login(credenciales: {correoElectronico: string; contrasena: string}): Observable<LoginAuthInterface>{
 
-    /*return this.http.post<LoginAuthInterface>(`${this.url}/login`, credenciales).pipe(tap(Response => {
+    return this.http.post<LoginAuthInterface>(`${this.url}/login`, credenciales).pipe(tap(Response => {
       sessionStorage.setItem('token', Response.token);
-      sessionStorage.setItem('emailUser', Response.correoElectronico);
-      sessionStorage.setItem('roles', JSON.stringify(Response.roles));
+      sessionStorage.setItem('usuario', Response.usuario);
+      sessionStorage.setItem('rol', Response.rol);
       
-    }));*/
-
-    return this.http.post<string>(`${this.url}/login`, credenciales);
+    }));
 
   }
 
