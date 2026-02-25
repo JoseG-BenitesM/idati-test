@@ -1,12 +1,10 @@
 <div class="contenedor">
     <div class="VTN_SLT">
         <h2>Restablecer contraseña</h2>
-        <p>Ingrese su correo electrónico para recibir el enlace de recuperación.</p>
-        
-        
+        <p>Ingrese su correo electrónico para recibir el enlace de recuperación.</p>        
         <form [formGroup]="solicitudForm" (ngSubmit)="solicitar()">
-            <div class="input-group" >
-                <input type="email" placeholder="Correo electrónico" formControlName="correo"   /><!-- (input)="submitted = false" -->
+            <div class="input-group">
+                <input type="email" placeholder="Correo electrónico" formControlName="correo"/>
             </div>
             
             @if (solicitudForm.get('correo')?.invalid && submitted) {

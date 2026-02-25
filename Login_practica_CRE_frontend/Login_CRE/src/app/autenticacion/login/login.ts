@@ -41,7 +41,8 @@ export class Login implements OnInit {
         correoElectronico: email,
         contrasena: password
       }).subscribe({
-        next: () => {
+        next: (res) => {
+          console.log(res)
           this.router.navigate(['/usuarios']);
         },
         error: (err) => {

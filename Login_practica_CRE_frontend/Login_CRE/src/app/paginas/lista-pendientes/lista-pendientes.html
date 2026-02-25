@@ -1,0 +1,38 @@
+<ng-container *ngIf="pendientes$ | async as pendientes; else cargandoTemplate">
+  @if (pendientes.length === 0) {
+    <div>Sin registros</div>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>CÓDIGO</th>
+          <th>FECHA USO</th>
+          <th>FECHA SOLICITUD</th>
+          <th>ESTADO</th>
+          <th>ACCION</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (pendiente of pendientes; track pendiente.id) {
+          <tr>
+            <td>{{ pendiente.id }}</td>
+            <td>{{ pendiente.codigo }}</td>
+            <td>{{ pendiente.fechaUso || 'N/A' }}</td>
+            <td>{{ pendiente.fechaSolicitud }}</td>
+            <td>{{ pendiente.estado }}</td>
+            <td>
+              <button (click)="desbloquear(pendiente.id)">Desbloquear</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</ng-container>
+
+<ng-template #cargandoTemplate>
+    @if (!error) {
+        <div>Cargando pendientes...</div>
+    }
+</ng-template>

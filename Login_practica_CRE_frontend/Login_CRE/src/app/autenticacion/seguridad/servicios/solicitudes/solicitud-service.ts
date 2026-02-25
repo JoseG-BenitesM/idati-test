@@ -3,7 +3,6 @@ import { environment } from '../../direcciones/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { listaPendientes } from './solicitud-interface';
-import { ReturnStatement } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +28,7 @@ export class SolicitudService {
   restablecer(codigo: string, nuevacontrasena: string): Observable<any>{
     return this.http.post(`${this.apiURL}/restablecer`, {
       codigo: codigo,
-      nuevacontrasena: nuevacontrasena
+      nuevaContrasena: nuevacontrasena
     });
   }
 

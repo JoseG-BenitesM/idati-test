@@ -2,12 +2,11 @@ import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@ang
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SolicitudService } from '../seguridad/servicios/solicitudes/solicitud-service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rest-contra',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './rest-contra.html',
   styleUrl: './rest-contra.css',
 })
@@ -18,7 +17,6 @@ export class RestContra implements OnInit {
   mostrarModal: boolean = false;
   modalExito: boolean = false;
   submitted: boolean = false;
-  private yaEnfocado = false;
 
   @ViewChild('btnModal') btnModal?: ElementRef<HTMLButtonElement>;
   

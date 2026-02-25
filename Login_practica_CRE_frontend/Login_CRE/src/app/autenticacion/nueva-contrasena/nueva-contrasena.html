@@ -1,0 +1,21 @@
+<div class="contenedor">
+    <form [formGroup]="RcontraForm" (ngSubmit)="cambiar_contra()">
+        <div class="input-group">
+            <label for="">CODIGO:</label>
+            <input type="text" placeholder="Ingrese el codigo de verificación" formControlName="codigo"/>
+        </div>
+        <div class="input-group">
+            <label for="">Nueva contraseña:</label>
+            <input type="text" placeholder="ingrese su nueva contraseña" formControlName="nuevaContrasena"/>
+        </div>
+        <button type="submit">Restablecer contraseña</button>
+    </form>
+
+    @if (ModalCDC) {
+        <div class="fondo_mensaje">
+            <div class="mensaje">
+                <p>{{mensaje}}</p>
+            </div>
+        </div>
+    }
+</div>
