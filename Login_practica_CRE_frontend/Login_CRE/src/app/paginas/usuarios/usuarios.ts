@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuariosService, Usuario } from '../../services/usuarios';
+import { Usuario } from '../../autenticacion/seguridad/servicios/usuarios/usuario-interface';
 import { Observable, tap, catchError, of } from 'rxjs';
+import { UsuariosService } from '../../autenticacion/seguridad/servicios/usuarios/usuarios-service';
 
 @Component({
   selector: 'app-usuarios',

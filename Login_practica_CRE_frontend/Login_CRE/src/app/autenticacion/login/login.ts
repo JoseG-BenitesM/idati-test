@@ -15,6 +15,8 @@ export class Login implements OnInit {
   loginForm!: FormGroup;
   showPassword: boolean = false;
   submitted: boolean = false;
+  mostrarModalBloqueo: boolean = false;
+  mensaje: string = '';
 
   constructor(private fb: FormBuilder, private router: Router, private LGSV: LoginAuthService) {}
 
@@ -30,53 +32,45 @@ export class Login implements OnInit {
   }
 
   onSubmit(): void {
-  this.submitted = true;
-  
-  if (this.loginForm.valid) {
-    const { email, password } = this.loginForm.value;
+    this.submitted = true;
+    
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
 
-    this.LGSV.login({
-      correoElectronico: email,
-      contrasena: password
-    }).subscribe({
-      next: (response: any) => { // Usamos any o una interfaz para acceder a .token
-        console.log('Respuesta del servidor:', response);
-
-        if (response && response.token) {
-          // 1. GUARDAR EL TOKEN (Esto es lo que te faltaba)
-          localStorage.setItem('token', response.token);
-          
-          // Opcional: Guardar el usuario si tu API lo envía
-          // localStorage.setItem('usuario', email); 
-
-          console.log('Token almacenado con éxito.');
+      this.LGSV.login({
+        correoElectronico: email,
+        contrasena: password
+      }).subscribe({
+        next: () => {
           this.router.navigate(['/usuarios']);
-        } else {
-          console.error('La respuesta no contiene un token:', response);
+        },
+        error: (err) => {
+          if(err.status === 423){
+            this.mensaje = err.error?.error || 'cuenta bloqueada';
+            this.mostrarModalBloqueo = true;
+          }else{
+            console.error("Error en login:", err);
+            alert('Credenciales incorrectas o error de servidor');
+          }
+          this.loginForm.reset();
+          this.submitted = false;
         }
-      },
-      error: (err) => {
-        console.error("Error en login:", err);
-        alert('Credenciales incorrectas o error de servidor');
-        this.loginForm.reset();
-        this.submitted = false;
-      }
-    });
-  } else {
-    this.loginForm.markAllAsTouched();
+      });
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
   }
-}
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   getUsername(): string | null {
-    return localStorage.getItem('usuario');
+    return sessionStorage.getItem('usuario');
   }
 
   getRoles(): string[] {
-    const roles = localStorage.getItem('roles');
+    const roles = sessionStorage.getItem('rol');
     return roles ? JSON.parse(roles) : [];
   }
 

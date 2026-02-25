@@ -10,6 +10,8 @@
           <th>ID</th>
           <th>Usuario</th>
           <th>Correo</th>
+          <th>Intentos fallidos</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +19,8 @@
           <td>{{ usuario.id }}</td>
           <td>{{ usuario.usuarioNombre }}</td>
           <td>{{ usuario.correoElectronico }}</td>
+          <td>{{ usuario.intentosFallidos }}</td>
+          <td>{{ usuario.activo? "✅":"❌" }}</td>
           <td><button>Desbloquear</button></td>
         </tr>
       </tbody>

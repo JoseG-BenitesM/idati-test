@@ -48,4 +48,14 @@
             Ingresar
         </button>
     </form>
+
+    @if (mostrarModalBloqueo) {
+        <div class="fondo-bloqueoModal">
+            <div class="bloqueoModal">
+                <p>{{mensaje}}</p>
+                 <a routerLink="/restaurar-contraseña"><button>Solicitar recuperación</button></a>
+            </div>
+        </div>
+    }
+
 </div>

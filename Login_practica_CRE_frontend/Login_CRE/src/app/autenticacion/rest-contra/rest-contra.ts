@@ -1,53 +1,86 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NgModel, FormsModule, NgForm } from '@angular/forms';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SolicitudService } from '../seguridad/servicios/solicitudes/solicitud-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rest-contra',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './rest-contra.html',
   styleUrl: './rest-contra.css',
 })
-export class RestContra {
-  correo: string = '';
-  mensajeExito: boolean = false;
+export class RestContra implements OnInit {
+  solicitudForm!: FormGroup;
   mostrarErrores: boolean = false;
+  mensaje: string ='';
+  mostrarModal: boolean = false;
+  modalExito: boolean = false;
+  submitted: boolean = false;
+  private yaEnfocado = false;
 
-  @ViewChild('btnLogin') btnLogin!: ElementRef<HTMLButtonElement>;
+  @ViewChild('btnModal') btnModal?: ElementRef<HTMLButtonElement>;
   
-  constructor(private router: Router){}
+  constructor(private router: Router, private SLTS: SolicitudService, private fb: FormBuilder ){}
 
-  solicitar(form: NgForm){
-    this.mostrarErrores = true;
+  ngOnInit(): void {
+    this.solicitudForm = this.fb.group({
+      correo: ['', [Validators.required, Validators.email]]
+    });
+  }
 
-    if (form.invalid) {
+  solicitar(): void {
+    this.submitted = true;
+
+    if (this.solicitudForm.invalid) {
+      this.solicitudForm.markAllAsTouched();
       return;
     }
 
-    console.log('solicitud enviada: ', this.correo);
-    this.mensajeExito = true;
+    const correo = this.solicitudForm.value.correo;
+
+    this.SLTS.solictarRecuperacion(correo).subscribe({
+      next: (e) =>{
+        this.mensaje = e.mensaje;
+        this.modalExito = true;
+        this.solicitudForm.reset();
+        this.submitted = false;
+        this.mostrarModal = true;
+        setTimeout(() => {this.btnModal?.nativeElement.focus();});
+      },
+      error: (err) => {
+        if(err.status === 409){
+          this.mensaje = err.error?.error || 'solicitud en revision';
+        }else{
+          this.mensaje = err.error?.error || 'error al ejecutar';
+        }
+        this.modalExito = false;
+        this.solicitudForm.reset();
+        this.submitted = false;
+        this.mostrarModal = true;
+        setTimeout(() => {this.btnModal?.nativeElement.focus();});
+      }
+    });
 
     /*setTimeout(() => {
       this.router.navigate(['/login']);
     }, 1000);*/
   }
 
+  cerrarModal(){
+    this.mostrarModal = false;
+  }
+
   irLogin() {
     this.router.navigate(['/login']);
   }
 
-  ngAfterViewChecked() {
-    if (this.mensajeExito && this.btnLogin) {
-      this.btnLogin.nativeElement.focus();
-    }
-  }
-
-  getEmailErrorMessage(input: NgModel): string {
-
-    if (input.errors?.['required']) return '¡Atención! El correo es obligatorio.';
+  getEmailErrorMessage(): string {
+    const control = this.solicitudForm.get('correo');
+    if (control?.hasError('required')) return '¡Atención! El correo es obligatorio.';
     
-    if (input.errors?.['email']) {return 'Por favor, ingresa un correo válido.'}
+    if (control?.hasError('email')) {return 'Por favor, ingresa un correo válido.'}
 
     return '';
   }
