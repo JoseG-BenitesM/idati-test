@@ -31,7 +31,7 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         List<SolicitudRecuperacionEntity> pendientes = solicitudRepository
                 .findByUsuarioIdAndEstado(usuario.getId(), (byte) 0);
         
-        if (!pendientes.isEmpty()) {
+        if(! pendientes.isEmpty()) {
             throw new RuntimeException("YA_TIENE_SOLICITUD_PENDIENTE");
         }
         
@@ -48,8 +48,38 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
     
     @Override
     @Transactional(readOnly = true)
-    public List<SolicitudRecuperacionEntity> listarPendientes() {
-        return solicitudRepository.findByEstado((byte) 0);
+    public List<SolicitudRecuperacionResponseDTO> listarPendientes() {
+        return solicitudRepository.findByEstado((byte) 0)
+                .stream()
+                .map(s -> SolicitudRecuperacionResponseDTO.builder()
+                        .id(s.getId())
+                        .idUsuario(s.getUsuario().getId())
+                        .nombreUsuario(s.getUsuario().getUsuarioNombre())
+                        .correoUsuario(s.getUsuario().getCorreoElectronico())
+                        .codigo(s.getCodigo())
+                        .fechaSolicitud(s.getFechaSolicitud())
+                        .fechaUso(s.getFechaUso())
+                        .estado(s.getEstado())
+                        .build())
+                .collect(java.util.stream.Collectors.toList());
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<SolicitudRecuperacionResponseDTO> listarTodas() {
+        return solicitudRepository.findAll()
+                .stream()
+                .map(s -> SolicitudRecuperacionResponseDTO.builder()
+                        .id(s.getId())
+                        .idUsuario(s.getUsuario().getId())
+                        .nombreUsuario(s.getUsuario().getUsuarioNombre())
+                        .correoUsuario(s.getUsuario().getCorreoElectronico())
+                        .codigo(s.getCodigo())
+                        .fechaSolicitud(s.getFechaSolicitud())
+                        .fechaUso(s.getFechaUso())
+                        .estado(s.getEstado())
+                        .build())
+                .collect(java.util.stream.Collectors.toList());
     }
     
     @Override
@@ -58,7 +88,7 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         SolicitudRecuperacionEntity solicitud = solicitudRepository.findById(idSolicitud)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
         
-        if (solicitud.getEstado() != 0) {
+        if(solicitud.getEstado() != 0) {
             throw new RuntimeException("La solicitud ya fue procesada");
         }
         

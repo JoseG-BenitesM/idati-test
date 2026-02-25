@@ -7,7 +7,9 @@ public interface SolicitudRecuperacionService {
     SolicitudRecuperacionEntity solicitarRecuperacion(String correoOUsuario);
     
     // Admin ve todas las solicitudes pendientes
-    List<SolicitudRecuperacionEntity> listarPendientes();
+    List<SolicitudRecuperacionResponseDTO> listarPendientes();
+    
+    List<SolicitudRecuperacionResponseDTO> listarTodas();
     
     // Admin aprueba — desbloquea usuario y genera código
     SolicitudRecuperacionEntity aprobarSolicitud(Integer idSolicitud);

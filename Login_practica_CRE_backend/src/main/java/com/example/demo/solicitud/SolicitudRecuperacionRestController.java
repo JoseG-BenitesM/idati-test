@@ -35,8 +35,17 @@ public class SolicitudRecuperacionRestController {
     
     // Admin lista solicitudes pendientes — solo ROLE_ADMIN
     @GetMapping("/pendientes")
-    public ResponseEntity<List<SolicitudRecuperacionEntity>> listarPendientes() {
-        List<SolicitudRecuperacionEntity> lista = service.listarPendientes();
+    public ResponseEntity<List<SolicitudRecuperacionResponseDTO>> listarPendientes() {
+        List<SolicitudRecuperacionResponseDTO> lista = service.listarPendientes();
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(lista);
+    }
+    // Admin lista todas las solicitudes — historial completo
+    @GetMapping
+    public ResponseEntity<List<SolicitudRecuperacionResponseDTO>> listarTodas() {
+        List<SolicitudRecuperacionResponseDTO> lista = service.listarTodas();
         if (lista.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
