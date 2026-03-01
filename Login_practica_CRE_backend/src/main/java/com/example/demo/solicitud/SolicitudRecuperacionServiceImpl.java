@@ -18,6 +18,7 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
     private final SolicitudRecuperacionRepository solicitudRepository;
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CorreoService servicioCorreo;
     
     @Override
     @Transactional
@@ -107,7 +108,10 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         usuario.setFechaUltimoIntento(null);
         usuarioRepository.save(usuario);
         
-        // En producción aquí se enviaría el código por correo
+        //Se enviaría el código por correo
+        String cuerpoC = "Solicitu de restablecimiento APROBADA.\nporfavor ingrese a http://localhost:4200/Restablecer para para restablecer la contraseña"
+                + "\nCodigo de recuperacion: " + solicitud.getCodigo();
+        servicioCorreo.enviarCorreo("ejemplo@gmail.com", "SOLICITUD APROBADA", cuerpoC);
         // Por ahora lo devolvemos en la respuesta para pruebas
         return solicitud;
     }
