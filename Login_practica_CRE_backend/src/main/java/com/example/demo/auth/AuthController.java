@@ -17,7 +17,7 @@ public class AuthController {
     private final AuthService authService;
     
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginRequestDTO request) {
         try {
             Map<String, String> response = authService.login(request); return ResponseEntity.ok(response);
         } catch (RuntimeException e) {

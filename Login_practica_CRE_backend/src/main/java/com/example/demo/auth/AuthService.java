@@ -20,7 +20,7 @@ public class AuthService {
     // límite definido
     private static final int MAX_INTENTOS = 3;
     
-    public Map<String, String> login(LoginRequest request) {
+    public Map<String, String> login(LoginRequestDTO request) {
         
         UsuarioEntity usuario = usuarioRepository.findByCorreoElectronico(request.getCorreoElectronico())
                 .or(() -> usuarioRepository.findByUsuarioNombre(request.getCorreoElectronico()))

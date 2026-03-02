@@ -13,7 +13,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"correoElectronico\": \"admin_01\",\r\n  \"contrasena\": \"admin_123\"\r\n}",
+          "raw": "{\r\n  \"correoElectronico\": \"ruizjeisonf@gmail.com\",\r\n  \"contrasena\": \"nueva_123\"\r\n}\r\n/*\r\n{\r\n  \"correoElectronico\": \"admin01@empresa.com\",\r\n  \"contrasena\": \"admin_123\"\r\n}*/\r\n",
           "options": {
             "raw": {
               "language": "json"
@@ -95,7 +95,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk5MjgzMywiZXhwIjoxNzcxOTk2NDMzfQ.3yZnzqQPsSZouprQ-MQ6CoCMCdoA72y18b36FvyaIGY",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk5NTM5OSwiZXhwIjoxNzcxOTk4OTk5fQ.bdcSAFmNhjJXpsBqkEyUlE9cL0bXvxS_JG9X_XsvdJA",
             "type": "text"
           }
         ],
@@ -177,7 +177,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"correoOUsuario\": \"usuario02@empresa.com\"\r\n}",
+          "raw": "{\r\n    \"correoOUsuario\": \"ruizjeisonf@gmail.com\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -207,7 +207,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk5MjQwNiwiZXhwIjoxNzcxOTk2MDA2fQ.M9t4scVZ6z4jmY-9_fHN4SJuBi8b3pkKlFwKstNfNWY",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MjQ2NzM5MCwiZXhwIjoxNzcyNDcwOTkwfQ.CoBNB4M9xfIwtjFvp3tp0FKQtO19k98AWZVWv23yg20",
             "type": "text"
           }
         ],
@@ -244,7 +244,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"codigo\": \"605618\",\r\n    \"nuevaContrasena\": \"nueva_123\"\r\n}",
+          "raw": "{\r\n    \"correoOUsuario\": \"ruizjeisonf@gmail.com\",\r\n    \"codigo\": \"475515\",\r\n    \"nuevaContrasena\": \"nueva_123\"\r\n}",
           "options": {
             "raw": {
               "language": "json"

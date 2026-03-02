@@ -15,7 +15,7 @@ public class CorreoService {
         mensaje.setTo(destinatario);
         mensaje.setSubject(asunto);
         mensaje.setText(cuerpo);
-        mensaje.setFrom("correo@gmail.com"); // correo correcto desde donde saldrá el código
+        mensaje.setFrom("ruizjeisonf@gmail.com");
         mailSender.send(mensaje);
     }
 }
