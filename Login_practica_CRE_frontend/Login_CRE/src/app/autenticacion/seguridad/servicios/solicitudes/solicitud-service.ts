@@ -25,8 +25,9 @@ export class SolicitudService {
     return this.http.patch(`${this.apiURL}/${id}/aprobar`, {});
   } 
 
-  restablecer(codigo: string, nuevacontrasena: string): Observable<any>{
+  restablecer(correo: string, codigo: string, nuevacontrasena: string): Observable<any>{
     return this.http.post(`${this.apiURL}/restablecer`, {
+      correoOUsuario: correo,
       codigo: codigo,
       nuevaContrasena: nuevacontrasena
     });

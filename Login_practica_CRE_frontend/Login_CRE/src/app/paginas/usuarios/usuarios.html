@@ -1,10 +1,7 @@
-<div class="container">
-  <h2>Lista de Usuarios</h2>
-  <button>Cerrar sesión</button>
-
+<div class="usuarios-container">
   <ng-container *ngIf="listaUsuarios$ | async as usuarios; else cargandoTemplate">
     
-    <table class="tabla" *ngIf="usuarios.length > 0">
+    <table class="tabla-usuarios" *ngIf="usuarios.length > 0">
       <thead>
         <tr>
           <th>ID</th>

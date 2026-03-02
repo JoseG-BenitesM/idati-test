@@ -43,7 +43,7 @@ export class Login implements OnInit {
       }).subscribe({
         next: (res) => {
           console.log(res)
-          this.router.navigate(['/usuarios']);
+          this.router.navigate(['/inicio-admin']);
         },
         error: (err) => {
           if(err.status === 423){
