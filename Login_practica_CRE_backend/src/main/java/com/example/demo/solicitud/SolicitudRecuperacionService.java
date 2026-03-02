@@ -15,5 +15,5 @@ public interface SolicitudRecuperacionService {
     SolicitudRecuperacionEntity aprobarSolicitud(Integer idSolicitud);
     
     // Usuario usa el código para restablecer contraseña
-    String restablecerContrasena(String codigo, String nuevaContrasena);
+    String restablecerContrasena(String correoOUsuario, String codigo, String nuevaContrasena);
 }

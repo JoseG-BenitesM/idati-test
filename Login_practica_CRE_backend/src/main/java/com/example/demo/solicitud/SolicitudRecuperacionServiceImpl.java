@@ -23,7 +23,7 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
     @Override
     @Transactional
     public SolicitudRecuperacionEntity solicitarRecuperacion(String correoOUsuario) {
-        // Buscar usuario por correo o nombre
+        
         UsuarioEntity usuario = usuarioRepository.findByCorreoElectronico(correoOUsuario)
                 .or(() -> usuarioRepository.findByUsuarioNombre(correoOUsuario))
                 .orElseThrow(() -> new RuntimeException("CREDENCIALES_INVALIDAS"));
@@ -32,19 +32,39 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         List<SolicitudRecuperacionEntity> pendientes = solicitudRepository
                 .findByUsuarioIdAndEstado(usuario.getId(), (byte) 0);
         
-        if(! pendientes.isEmpty()) {
+        if (!pendientes.isEmpty()) {
             throw new RuntimeException("YA_TIENE_SOLICITUD_PENDIENTE");
         }
         
-        // Crear nueva solicitud con código placeholder
-        // El código real lo genera el admin al aprobar
+        // FLUJO 1: Usuario bloqueado → espera aprobación del admin
+        if (!usuario.isActivo()) {
+            SolicitudRecuperacionEntity solicitud = SolicitudRecuperacionEntity.builder()
+                    .usuario(usuario)
+                    .codigo("000000") // placeholder hasta que admin apruebe
+                    .estado((byte) 0) // pendiente
+                    .build();
+            return solicitudRepository.save(solicitud);
+        }
+        
+        // FLUJO 2: Usuario activo pero olvidó contraseña → código inmediato
+        String codigo = String.format("%06d", new Random().nextInt(999999));
+        
         SolicitudRecuperacionEntity solicitud = SolicitudRecuperacionEntity.builder()
                 .usuario(usuario)
-                .codigo("000000") // placeholder hasta que admin apruebe
-                .estado((byte) 0) // pendiente
+                .codigo(codigo)
+                .estado((byte) 1) // ya aprobada, no necesita admin
                 .build();
         
-        return solicitudRepository.save(solicitud);
+        solicitudRepository.save(solicitud);
+        
+        // Enviar código por correo inmediatamente
+        String cuerpo = "Solicitud de recuperación de contraseña.\n"
+                + "Ingresa a http://localhost:4200/Restablecer para restablecer tu contraseña.\n"
+                + "Código de recuperación: " + codigo;
+        
+        servicioCorreo.enviarCorreo(usuario.getCorreoElectronico(), "RECUPERACIÓN DE CONTRASEÑA", cuerpo);
+        
+        return solicitud;
     }
     
     @Override
@@ -109,22 +129,31 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         usuarioRepository.save(usuario);
         
         //Se enviaría el código por correo
-        String cuerpoC = "Solicitu de restablecimiento APROBADA.\nporfavor ingrese a http://localhost:4200/Restablecer para para restablecer la contraseña"
+        String cuerpoC = "Solicitud de restablecimiento APROBADA.\nporfavor ingrese a http://localhost:4200/Restablecer para para restablecer la contraseña"
                 + "\nCodigo de recuperacion: " + solicitud.getCodigo();
-        servicioCorreo.enviarCorreo("ejemplo@gmail.com", "SOLICITUD APROBADA", cuerpoC);
+        servicioCorreo.enviarCorreo(usuario.getCorreoElectronico(), "SOLICITUD APROBADA", cuerpoC);
         // Por ahora lo devolvemos en la respuesta para pruebas
         return solicitud;
     }
     
     @Override
     @Transactional
-    public String restablecerContrasena(String codigo, String nuevaContrasena) {
+    public String restablecerContrasena(String correoOUsuario, String codigo, String nuevaContrasena) {
+        
+        // Buscar usuario
+        UsuarioEntity usuario = usuarioRepository.findByCorreoElectronico(correoOUsuario)
+                .or(() -> usuarioRepository.findByUsuarioNombre(correoOUsuario))
+                .orElseThrow(() -> new RuntimeException("CREDENCIALES_INVALIDAS"));
+        
+        // Verificar que el código pertenece a ese usuario
         SolicitudRecuperacionEntity solicitud = solicitudRepository
-                .findByCodigoAndEstado(codigo, (byte) 1) // estado=1 aprobada
+                .findByCodigoAndEstado(codigo, (byte) 1)
                 .orElseThrow(() -> new RuntimeException("CODIGO_INVALIDO"));
         
+        if(! solicitud.getUsuario().getId().equals(usuario.getId())) {
+            throw new RuntimeException("CODIGO_INVALIDO"); // el código no es de este usuario
+        }
         // Actualizar contraseña
-        UsuarioEntity usuario = solicitud.getUsuario();
         usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
         usuarioRepository.save(usuario);
         

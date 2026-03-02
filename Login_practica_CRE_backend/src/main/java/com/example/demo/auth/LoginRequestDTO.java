@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class LoginRequestDTO {
     
     // puedes dejarlo igual o llamarlo "identificador"
+    // Sirve tanto para correo como para nombre de usuario
     @NotBlank(message = "El usuario o correo es obligatorio")
     String correoElectronico;
     

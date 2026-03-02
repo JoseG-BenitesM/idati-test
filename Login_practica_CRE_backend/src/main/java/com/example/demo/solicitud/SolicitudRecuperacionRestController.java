@@ -19,10 +19,21 @@ public class SolicitudRecuperacionRestController {
     @PostMapping("/solicitar")
     public ResponseEntity<Map<String, String>> solicitar(@RequestBody Map<String, String> body) {
         try {
-            service.solicitarRecuperacion(body.get("correoOUsuario"));
-            return ResponseEntity.ok(Map.of(
-                    "mensaje", "Solicitud enviada. Espera la aprobación del administrador."
-            ));
+            SolicitudRecuperacionEntity solicitud = service.solicitarRecuperacion(body.get("correoOUsuario"));
+            
+            // Mensaje diferente según el estado de la solicitud
+            if (solicitud.getEstado() == 0) {
+                // Usuario bloqueado — espera admin
+                return ResponseEntity.ok(Map.of(
+                        "mensaje", "Solicitud enviada. Tu cuenta está bloqueada, espera la aprobación del administrador."
+                ));
+            } else {
+                // Usuario activo — código enviado inmediatamente
+                return ResponseEntity.ok(Map.of(
+                        "mensaje", "Código de recuperación enviado a tu correo electrónico."
+                ));
+            }
+            
         } catch (RuntimeException e) {
             if (e.getMessage().equals("YA_TIENE_SOLICITUD_PENDIENTE")) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -72,6 +83,7 @@ public class SolicitudRecuperacionRestController {
     public ResponseEntity<Map<String, String>> restablecer(@RequestBody Map<String, String> body) {
         try {
             String mensaje = service.restablecerContrasena(
+                    body.get("correoOUsuario"),
                     body.get("codigo"),
                     body.get("nuevaContrasena")
             );

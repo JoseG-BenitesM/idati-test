@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
 
+// Combina @ControllerAdvice + @ResponseBody
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     
     // Maneja errores de validación (@NotBlank, @NotNull, etc.)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
+        // getBindingResult() contiene todos los errores de validación
+        // getFieldErrors() devuelve la lista de campos con error
         String mensaje = ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .findFirst()
