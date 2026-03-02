@@ -19,12 +19,16 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginRequestDTO request) {
         try {
-            Map<String, String> response = authService.login(request); return ResponseEntity.ok(response);
+            Map<String, String> response = authService.login(request);
+            return ResponseEntity.ok(response); // HTTP 200 con el body
         } catch (RuntimeException e) {
             String mensaje = e.getMessage(); if(mensaje.equals("CUENTA_BLOQUEADA")) {
-                return ResponseEntity.status(HttpStatus.LOCKED) // 423
-                        .body(Map.of("error", "Tu cuenta ha sido bloqueada por demasiados intentos fallidos. Contacta al administrador."));
-            } return ResponseEntity.status(HttpStatus.UNAUTHORIZED) // 401
+                return ResponseEntity.status(HttpStatus.LOCKED)
+                        // HTTP 423 Locked — código específico para cuenta bloqueada
+                        .body(Map.of("error",
+                                "Tu cuenta ha sido bloqueada por demasiados intentos fallidos. Contacta al administrador."));
+            } return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    // HTTP 401 Unauthorized — credenciales incorrectas
                     .body(Map.of("error", "Credenciales inválidas"));
         }
     }
