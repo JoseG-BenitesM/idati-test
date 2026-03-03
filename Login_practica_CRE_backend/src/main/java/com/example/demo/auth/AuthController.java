@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200", "https://login-idate.netlify.app"})
+@CrossOrigin(origins = {"http://localhost:4200", "https://cre-login-2026.netlify.app"})
 public class AuthController {
     
     private final AuthService authService;
