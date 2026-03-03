@@ -18,7 +18,10 @@
           <td>{{ usuario.correoElectronico }}</td>
           <td>{{ usuario.intentosFallidos }}</td>
           <td>{{ usuario.activo? "✅":"❌" }}</td>
-          <td><button>Desbloquear</button></td>
+          <td>
+            <button (click)="bloquear(usuario.id)">Bloquear</button>
+            <button (click)="desbloquear(usuario.id)">Desbloquear</button>
+          </td>
         </tr>
       </tbody>
     </table>
