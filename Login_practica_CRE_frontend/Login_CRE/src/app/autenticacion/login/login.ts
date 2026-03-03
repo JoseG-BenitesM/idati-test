@@ -33,7 +33,7 @@ export class Login implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    
+
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
@@ -41,15 +41,22 @@ export class Login implements OnInit {
         correoElectronico: email,
         contrasena: password
       }).subscribe({
-        next: (res) => {
-          console.log(res)
-          this.router.navigate(['/inicio-admin']);
+        next: () => {
+          // Ya se guardó token, usuario y rol en sessionStorage por el servicio
+          const rol = sessionStorage.getItem('rol');
+
+          if (rol === 'ROLE_ADMIN') {
+            this.router.navigate(['/inicio-admin']);
+          } else {
+            // fallback si viene otro rol
+            this.router.navigate(['/inicio-usuario']);
+          }
         },
         error: (err) => {
-          if(err.status === 423){
-            this.mensaje = err.error?.error || 'cuenta bloqueada';
+          if (err.status === 423) {
+            this.mensaje = err.error?.error || 'Cuenta bloqueada';
             this.mostrarModalBloqueo = true;
-          }else{
+          } else {
             console.error("Error en login:", err);
             alert('Credenciales incorrectas o error de servidor');
           }
@@ -62,26 +69,6 @@ export class Login implements OnInit {
     }
   }
 
-  getToken(): string | null {
-    return sessionStorage.getItem('token');
-  }
-
-  getUsername(): string | null {
-    return sessionStorage.getItem('usuario');
-  }
-
-  getRoles(): string[] {
-    const roles = sessionStorage.getItem('rol');
-    return roles ? JSON.parse(roles) : [];
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.getToken();
-  }
-
-  logout(): void {
-    localStorage.clear();
-  }
 
   getEmailErrorMessage(): string {
     const control = this.loginForm.get('email');

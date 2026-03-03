@@ -17,4 +17,11 @@ export class UsuariosService {
     return this.http.get<Usuario[]>(this.apiUrl);
   }
 
+  bloquearUsuario(id: number): Observable<Usuario> {
+    return this.http.patch<Usuario>(`${this.apiUrl}/${id}/bloquear`, {});
+  }
+
+  desbloquearUsuario(id: number): Observable<Usuario> {
+    return this.http.patch<Usuario>(`${this.apiUrl}/${id}/desbloquear`, {});
+  }
 }

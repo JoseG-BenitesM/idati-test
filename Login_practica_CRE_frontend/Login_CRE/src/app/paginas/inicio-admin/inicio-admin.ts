@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
+import { Proteccion } from '../../autenticacion/seguridad/servicios/PPTR/proteccion';
 
 @Component({
   selector: 'app-inicio-admin',
@@ -9,4 +10,10 @@ import { RouterLink, RouterOutlet } from "@angular/router";
 })
 export class InicioAdmin {
 
+  constructor(private authService: Proteccion, private router: Router) {}
+
+  logout(): void {
+    this.authService.logout(); 
+    this.router.navigate(['/login']); 
+  }
 }
