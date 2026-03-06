@@ -15,7 +15,7 @@ public class CorreoService {
         mensaje.setTo(destinatario);
         mensaje.setSubject(asunto);
         mensaje.setText(cuerpo);
-        mensaje.setFrom("ruizjeisonf@gmail.com");
+        mensaje.setFrom("idaticre@gmail.com");
         mailSender.send(mensaje);
     }
 }

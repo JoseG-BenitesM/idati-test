@@ -59,7 +59,7 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         
         // Enviar código por correo inmediatamente
         String cuerpo = "Solicitud de recuperación de contraseña.\n"
-                + "Ingresa a http://localhost:4200/Restablecer para restablecer tu contraseña.\n"
+                + "Ingresa a Restablecer Contraseña para reconfigurar tu clave.\n"
                 + "Código de recuperación: " + codigo;
         
         servicioCorreo.enviarCorreo(usuario.getCorreoElectronico(), "RECUPERACIÓN DE CONTRASEÑA", cuerpo);
@@ -129,7 +129,7 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         usuarioRepository.save(usuario);
         
         //Se enviaría el código por correo
-        String cuerpoC = "Solicitud de restablecimiento APROBADA.\nporfavor ingrese a http://localhost:4200/Restablecer para para restablecer la contraseña"
+        String cuerpoC = "Solicitud de restablecimiento APROBADA.\nporfavor ingrese a Restablecer Contraseña para para reconfigurar tu clave"
                 + "\nCodigo de recuperacion: " + solicitud.getCodigo();
         servicioCorreo.enviarCorreo(usuario.getCorreoElectronico(), "SOLICITUD APROBADA", cuerpoC);
         // Por ahora lo devolvemos en la respuesta para pruebas

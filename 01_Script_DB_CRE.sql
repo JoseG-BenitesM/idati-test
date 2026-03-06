@@ -1,11 +1,12 @@
 -- BASE DE DATOS: capacitacion_CRE
 -- Corresponde al registro de usuarios y credenciales
 
--- 0. Creación de la Base de Datos
-DROP DATABASE IF EXISTS capacitacion_CRE;
-CREATE DATABASE capacitacion_CRE;
-USE capacitacion_CRE;
+-- 0. Creación de la Base de Datos a nivel local
+-- DROP DATABASE IF EXISTS capacitacion_CRE;
+-- CREATE DATABASE capacitacion_CRE;
+-- USE capacitacion_CRE;
 
+-- 0. Creación de la Base de Datos a nivel servidor
 -- TABLA: usuarios
 -- Guarda las credenciales de acceso al sistema para cada persona autorizada.
 CREATE TABLE IF NOT EXISTS usuarios (
