@@ -7,6 +7,13 @@
 -- USE capacitacion_CRE;
 
 -- 0. Creación de la Base de Datos a nivel servidor
+
+-- Primero borrar en orden por las FK para restaurar datos
+DROP TABLE IF EXISTS solicitudes_recuperacion;
+DROP TABLE IF EXISTS usuarios_roles;
+DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS roles;
+
 -- TABLA: usuarios
 -- Guarda las credenciales de acceso al sistema para cada persona autorizada.
 CREATE TABLE IF NOT EXISTS usuarios (
@@ -81,4 +88,4 @@ CREATE TABLE IF NOT EXISTS solicitudes_recuperacion (
 
 ALTER TABLE solicitudes_recuperacion
     ADD CONSTRAINT fk_solicitud_usuario 
-        FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE;
+        FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE;        
