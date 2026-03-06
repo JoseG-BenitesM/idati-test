@@ -33,14 +33,14 @@ export class UsuariosComponent implements OnInit {
         console.error('Error en el stream:', err);
         this.error = 'Error de conexión';
         this.cargando = false;
-        return of([]); // Retorna array vacío para que el pipe async no rompa
+        return of([]); 
       })
     );
   }
 
   bloquear(id: number): void {
     this.listaUsuarios$ = this.usuariosService.bloquearUsuario(id).pipe(
-      switchMap(() => this.usuariosService.obtenerUsuarios()), // 👈 refresca después del PATCH
+      switchMap(() => this.usuariosService.obtenerUsuarios()), 
       tap(() => this.cargando = false),
         catchError(err => {
           console.error('Error al bloquear', err);
@@ -53,7 +53,7 @@ export class UsuariosComponent implements OnInit {
 
   desbloquear(id: number): void {
     this.listaUsuarios$ = this.usuariosService.desbloquearUsuario(id).pipe(
-      switchMap(() => this.usuariosService.obtenerUsuarios()), // 👈 refresca después del PATCH
+      switchMap(() => this.usuariosService.obtenerUsuarios()), 
       tap(() => this.cargando = false),
       catchError(err => {
         console.error('Error al desbloquear', err);
