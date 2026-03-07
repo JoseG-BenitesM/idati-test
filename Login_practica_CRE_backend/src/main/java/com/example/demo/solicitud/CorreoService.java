@@ -1,6 +1,5 @@
 package com.example.demo.solicitud;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -9,23 +8,26 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Service
-@RequiredArgsConstructor
 public class CorreoService {
+    
     private final String API_KEY = "jZYnC6BHkcF2za0A";
-    // En Brevo → Transaccional → SMTP & API → Parámetros de la API
     
     public void enviarCorreo(String destinatario, String asunto, String cuerpo) {
+        System.out.println("=== INTENTANDO ENVIAR CORREO A: " + destinatario);
         try {
             HttpClient client = HttpClient.newHttpClient();
             
-            String json = """
-                    {
-                        "sender": {"email": "idaticre@gmail.com"},
-                        "to": [{"email": "%s"}],
-                        "subject": "%s",
-                        "textContent": "%s"
-                    }
-                    """.formatted(destinatario, asunto, cuerpo);
+            String json = String.format(
+                    "{" +
+                            "\"sender\": {\"email\": \"idaticre@gmail.com\"}," +
+                            "\"to\": [{\"email\": \"%s\"}]," +
+                            "\"subject\": \"%s\"," +
+                            "\"textContent\": \"%s\"" +
+                            "}",
+                    destinatario, asunto, cuerpo
+            );
+            
+            System.out.println("=== JSON: " + json);
             
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://api.brevo.com/v3/smtp/email"))
@@ -34,10 +36,15 @@ public class CorreoService {
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
             
-            client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+            
+            System.out.println("=== BREVO STATUS: " + response.statusCode());
+            System.out.println("=== BREVO BODY: " + response.body());
             
         } catch (Exception e) {
-            System.err.println("Error enviando correo: " + e.getMessage());
+            System.err.println("=== ERROR ENVIANDO CORREO: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
