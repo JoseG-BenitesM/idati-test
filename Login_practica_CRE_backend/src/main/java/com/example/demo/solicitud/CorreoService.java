@@ -10,7 +10,7 @@ import java.net.http.HttpResponse;
 @Service
 public class CorreoService {
     
-    private final String API_KEY = "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";
+    private final String API_KEY = "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";
     
     public void enviarCorreo(String destinatario, String asunto, String cuerpo) {
         System.out.println("=== INTENTANDO ENVIAR CORREO A: " + destinatario);
