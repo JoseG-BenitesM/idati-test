@@ -17,6 +17,13 @@ public class CorreoService {
         try {
             HttpClient client = HttpClient.newHttpClient();
             
+            // Reemplazar saltos de línea para que el JSON sea válido
+            String cuerpoLimpio = cuerpo
+                    .replace("\\", "\\\\")
+                    .replace("\"", "\\\"")
+                    .replace("\n", "\\n")
+                    .replace("\r", "");
+            
             String json = String.format(
                     "{" +
                             "\"from\": \"onboarding@resend.dev\"," +
@@ -24,7 +31,7 @@ public class CorreoService {
                             "\"subject\": \"%s\"," +
                             "\"text\": \"%s\"" +
                             "}",
-                    destinatario, asunto, cuerpo
+                    destinatario, asunto, cuerpoLimpio
             );
             
             System.out.println("=== JSON: " + json);
