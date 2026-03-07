@@ -23,15 +23,15 @@ public class SolicitudRecuperacionRestController {
             
             // Mensaje diferente según el estado de la solicitud
             if (solicitud.getEstado() == 0) {
-                // Usuario bloqueado — espera admin
-                return ResponseEntity.ok(Map.of(
-                        "mensaje", "Solicitud enviada. Tu cuenta está bloqueada, espera la aprobación del administrador."
-                ));
+                return ResponseEntity.ok(Map.of("mensaje",
+                        "Solicitud enviada. Tu cuenta está bloqueada, espera la aprobación del administrador."));
+            } else if (solicitud.getEstado() == 1) {
+                return ResponseEntity.ok(Map.of("mensaje",
+                        "Código de recuperación enviado a tu correo electrónico."));
             } else {
-                // Usuario activo — código enviado inmediatamente
-                return ResponseEntity.ok(Map.of(
-                        "mensaje", "Código de recuperación enviado a tu correo electrónico."
-                ));
+                // estado 4 — correo falló pero solicitud guardada
+                return ResponseEntity.ok(Map.of("mensaje",
+                        "Solicitud registrada. El correo no pudo enviarse, contacta al administrador para obtener tu código."));
             }
             
         } catch (RuntimeException e) {

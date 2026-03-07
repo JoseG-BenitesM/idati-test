@@ -42,21 +42,33 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         
         String codigo = String.format("%06d", new Random().nextInt(999999));
         
-        SolicitudRecuperacionEntity solicitud = solicitudRepository.save(SolicitudRecuperacionEntity.builder().usuario(usuario).codigo(codigo).estado((byte) 1).build());
-        // Guardar ANTES de enviar correo
-        // Si el correo falla la solicitud ya quedó guardada
+        SolicitudRecuperacionEntity solicitud = solicitudRepository.save(
+                SolicitudRecuperacionEntity.builder()
+                        .usuario(usuario)
+                        .codigo(codigo)
+                        .estado((byte) 1)
+                        .build()
+        );
         
+        // Intentar enviar correo pero no caerse si falla
+        boolean correoEnviado = true;
         try {
-            String cuerpo = "Solicitud de recuperación de contraseña.\n" + "Ingresa a http://localhost:4200/Restablecer\n" + "Código de recuperación: " + codigo;
-            
-            servicioCorreo.enviarCorreo(usuario.getCorreoElectronico(), "RECUPERACIÓN DE CONTRASEÑA", cuerpo);
-            
+            String cuerpo = "Solicitud de recuperación de contraseña.\n"
+                    + "Código de recuperación: " + codigo;
+            servicioCorreo.enviarCorreo(
+                    usuario.getCorreoElectronico(),
+                    "RECUPERACIÓN DE CONTRASEÑA",
+                    cuerpo);
         } catch (Exception e) {
-            // El correo falló pero la solicitud ya está guardada
-            // El admin puede ver el código en /pendientes si es necesario
+            correoEnviado = false;
             log.error("Error enviando correo a {}: {}",
                     usuario.getCorreoElectronico(), e.getMessage());
         }
+        // Guardar el estado del correo en la solicitud para que
+        // el controller sepa qué mensaje mostrar
+        solicitud.setEstado(correoEnviado ? (byte) 1 : (byte) 4);
+        // 4 = aprobada pero correo fallido
+        solicitudRepository.save(solicitud);
         
         return solicitud;
     }
@@ -79,7 +91,7 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         SolicitudRecuperacionEntity solicitud = solicitudRepository.findById(idSolicitud)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
         
-        if (solicitud.getEstado() != 0) {
+        if(solicitud.getEstado() != 0) {
             throw new RuntimeException("La solicitud ya fue procesada");
         }
         
@@ -114,7 +126,7 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         resultado.put("codigo", codigo);
         resultado.put("usuario", usuario.getUsuarioNombre());
         
-        if (correoEnviado) {
+        if(correoEnviado) {
             resultado.put("mensaje",
                     "Solicitud aprobada. Usuario desbloqueado. Código enviado al correo.");
         } else {
