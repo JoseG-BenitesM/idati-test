@@ -3,18 +3,22 @@ package com.example.demo.solicitud;
 import com.example.demo.usuario.UsuarioEntity;
 import com.example.demo.usuario.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
 public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionService {
-    
+    private static final Logger log =
+            LoggerFactory.getLogger(SolicitudRecuperacionServiceImpl.class);
     private final SolicitudRecuperacionRepository solicitudRepository;
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
@@ -50,7 +54,8 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         } catch (Exception e) {
             // El correo falló pero la solicitud ya está guardada
             // El admin puede ver el código en /pendientes si es necesario
-            System.err.println("Error enviando correo: " + e.getMessage());
+            log.error("Error enviando correo a {}: {}",
+                    usuario.getCorreoElectronico(), e.getMessage());
         }
         
         return solicitud;
@@ -70,33 +75,55 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
     
     @Override
     @Transactional
-    public SolicitudRecuperacionEntity aprobarSolicitud(Integer idSolicitud) {
-        SolicitudRecuperacionEntity solicitud = solicitudRepository.findById(idSolicitud).orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
+    public Map<String, String> aprobarSolicitud(Integer idSolicitud) {
+        SolicitudRecuperacionEntity solicitud = solicitudRepository.findById(idSolicitud)
+                .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
         
-        if(solicitud.getEstado() != 0) {
+        if (solicitud.getEstado() != 0) {
             throw new RuntimeException("La solicitud ya fue procesada");
         }
         
-        // Generar código de 6 dígitos
         String codigo = String.format("%06d", new Random().nextInt(999999));
-        
-        // Actualizar solicitud
-        solicitud.setCodigo(codigo); solicitud.setEstado((byte) 1); // aprobada
+        solicitud.setCodigo(codigo);
+        solicitud.setEstado((byte) 1);
         solicitudRepository.save(solicitud);
         
-        // Desbloquear usuario y resetear intentos
-        UsuarioEntity usuario = solicitud.getUsuario(); usuario.setEstadoUsuario((byte) 1);
-        usuario.setIntentosFallidos((byte) 0); usuario.setFechaUltimoIntento(null); usuarioRepository.save(usuario);
+        UsuarioEntity usuario = solicitud.getUsuario();
+        usuario.setEstadoUsuario((byte) 1);
+        usuario.setIntentosFallidos((byte) 0);
+        usuario.setFechaUltimoIntento(null);
+        usuarioRepository.save(usuario);
         
-        //Se enviaría el código por correo
-        String cuerpoC = "Solicitud de restablecimiento APROBADA.\nporfavor ingrese a Restablecer Contraseña para para reconfigurar tu clave" + "\nCodigo de recuperacion: " + solicitud.getCodigo();
+        // Intentar enviar correo pero no caerse si falla
+        boolean correoEnviado = true;
         try {
-            servicioCorreo.enviarCorreo(usuario.getCorreoElectronico(), "RECUPERACIÓN DE CONTRASEÑA", cuerpoC);
+            String cuerpoC = "Solicitud APROBADA.\nIngresa a Restablecer Contraseña.\n"
+                    + "Código de recuperación: " + codigo;
+            servicioCorreo.enviarCorreo(
+                    usuario.getCorreoElectronico(),
+                    "RECUPERACIÓN DE CONTRASEÑA",
+                    cuerpoC);
         } catch (Exception e) {
-            System.err.println("Error enviando correo: " + e.getMessage());
+            correoEnviado = false;
+            log.error("Error enviando correo a {}: {}",
+                    usuario.getCorreoElectronico(), e.getMessage());
         }
-        // Por ahora lo devolvemos en la respuesta para pruebas
-        return solicitud;
+        
+        // Devolver código siempre + aviso si el correo falló
+        Map<String, String> resultado = new java.util.HashMap<>();
+        resultado.put("codigo", codigo);
+        resultado.put("usuario", usuario.getUsuarioNombre());
+        
+        if (correoEnviado) {
+            resultado.put("mensaje",
+                    "Solicitud aprobada. Usuario desbloqueado. Código enviado al correo.");
+        } else {
+            resultado.put("mensaje",
+                    "Solicitud aprobada. Usuario desbloqueado. " +
+                            "El correo no pudo enviarse, entrega el código manualmente.");
+        }
+        
+        return resultado;
     }
     
     @Override

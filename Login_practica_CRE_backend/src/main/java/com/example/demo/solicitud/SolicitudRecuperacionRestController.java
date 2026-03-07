@@ -67,11 +67,8 @@ public class SolicitudRecuperacionRestController {
     @PatchMapping("/{id}/aprobar")
     public ResponseEntity<Map<String, String>> aprobar(@PathVariable Integer id) {
         try {
-            SolicitudRecuperacionEntity solicitud = service.aprobarSolicitud(id);
-            return ResponseEntity.ok(Map.of(
-                    "mensaje", "Solicitud aprobada. Usuario desbloqueado.",
-                    "codigo", solicitud.getCodigo() // en producción esto va por correo
-            ));
+            Map<String, String> resultado = service.aprobarSolicitud(id);
+            return ResponseEntity.ok(resultado);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", e.getMessage()));

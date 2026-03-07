@@ -1,6 +1,7 @@
 package com.example.demo.solicitud;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SolicitudRecuperacionService {
     // Usuario solicita recuperación
@@ -12,7 +13,7 @@ public interface SolicitudRecuperacionService {
     List<SolicitudRecuperacionResponseDTO> listarTodas();
     
     // Admin aprueba — desbloquea usuario y genera código
-    SolicitudRecuperacionEntity aprobarSolicitud(Integer idSolicitud);
+    Map<String, String> aprobarSolicitud(Integer idSolicitud);
     
     // Usuario usa el código para restablecer contraseña
     String restablecerContrasena(String correoOUsuario, String codigo, String nuevaContrasena);
