@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS solicitudes_recuperacion (
     -- 1 = aprobada por admin
     -- 2 = usada por usuario
     -- 3 = expirada
+	-- 4 = aprobada (correo falló)
 );
 
 ALTER TABLE solicitudes_recuperacion

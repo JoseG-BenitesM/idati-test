@@ -17,4 +17,7 @@ public interface SolicitudRecuperacionService {
     
     // Usuario usa el código para restablecer contraseña
     String restablecerContrasena(String correoOUsuario, String codigo, String nuevaContrasena);
+    
+    // En SolicitudRecuperacionService
+    void reenviarCodigo(Integer idSolicitud);
 }

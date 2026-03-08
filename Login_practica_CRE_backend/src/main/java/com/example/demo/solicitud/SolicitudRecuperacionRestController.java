@@ -90,4 +90,17 @@ public class SolicitudRecuperacionRestController {
                     .body(Map.of("error", "Código inválido o ya utilizado."));
         }
     }
+    
+    // En SolicitudRecuperacionRestController
+    @PatchMapping("/{id}/reenviar")
+    public ResponseEntity<Map<String, String>> reenviar(@PathVariable Integer id) {
+        try {
+            service.reenviarCodigo(id);
+            return ResponseEntity.ok(Map.of(
+                    "mensaje", "Código reenviado correctamente."));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.example.demo.solicitud;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,4 +18,9 @@ public interface SolicitudRecuperacionRepository extends JpaRepository<Solicitud
     
     // Listar todas las pendientes para que el admin las vea
     List<SolicitudRecuperacionEntity> findByEstado(Byte estado);
+    
+    List<SolicitudRecuperacionEntity> findByEstadoIn(List<Byte> estados);
+    
+    long countByUsuarioIdAndFechaSolicitudAfter(
+            Integer idUsuario, LocalDateTime fecha);
 }
