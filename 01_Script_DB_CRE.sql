@@ -32,7 +32,7 @@ INSERT INTO usuarios (usuario_nombre, correo_electronico, contrasena) VALUES
 ('admin_01', 'josegbenitesm@gmail.com', '$2a$10$k8uxbPU3O0UZ8/bRmRQ2gO1BC6/ibVW7HZZtxiBo3MqDQLwI8dKS6'),   -- pwd: admin_123
 ('usuario_02', 'ruizjeisonf@gmail.com', '$2a$10$trnskNIykzSPfNX0bWqwgOdvrHY3qgrhDxI/0gU7xvp/WJ/ruHkbq'), -- pwd: usuario_123
 ('usuario_03', 'juniorabelcordova@gmail.com', '$2a$10$9gnjv5aggAmyyfV5Pfx0kOd2O1tVIWAaw8YB.pbIRSIZFU6c8NPT6'), -- pwd: usuario_456
-('usuario_04', 'equispetapia8@gmail.com@gmail.com', '$2a$10$x70lEJizN2e9YVI9e3cMzO5iqenB2jlX4d5apHDdC/66v1hj02hhW'); -- pwd: usuario_789
+('usuario_04', 'equispetapia8@gmail.com', '$2a$10$x70lEJizN2e9YVI9e3cMzO5iqenB2jlX4d5apHDdC/66v1hj02hhW'); -- pwd: usuario_789
 
 -- TABLA: roles
 -- Define los roles asignables a usuarios del sistema.
