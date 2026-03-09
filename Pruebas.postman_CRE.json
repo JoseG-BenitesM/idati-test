@@ -7,13 +7,316 @@
   },
   "item": [
     {
+      "name": "LOCALHOST",
+      "item": [
+        {
+          "name": "Todos -Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"correoElectronico\": \"admin_01\",\r\n  \"contrasena\": \"admin_123\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin - Consultas usuarios",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk0MjkxMywiZXhwIjoxNzcxOTQ2NTEzfQ.EU7YcmAxpKmDnIpEKrJG7QRLn5Q460at5iEIrVkITos",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin - Consultar listas pendientes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI4MzA2MjQsImV4cCI6MTc3MjgzNDIyNH0.QVr7fYMyYMIrtow2SlWJ1hcfmVpiFn5dqm6R7K4NCIc",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/solicitudes/pendientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "solicitudes",
+                "pendientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin - Consultar historial",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI4MzA2MjQsImV4cCI6MTc3MjgzNDIyNH0.QVr7fYMyYMIrtow2SlWJ1hcfmVpiFn5dqm6R7K4NCIc",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/solicitudes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "solicitudes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin - Desbloquear",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI4MzkzMzIsImV4cCI6MTc3Mjg0MjkzMn0.DqBfVpJh75K_iA6AA08DnWhm9A_79U9UG3OazRt3Ebo",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios/3/desbloquear",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios",
+                "3",
+                "desbloquear"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin - Bloquear",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI4MzkzMzIsImV4cCI6MTc3Mjg0MjkzMn0.DqBfVpJh75K_iA6AA08DnWhm9A_79U9UG3OazRt3Ebo",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios/3/bloquear",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios",
+                "3",
+                "bloquear"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Usuarios - recuperar contraseña",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"correoOUsuario\": \"ruizjeisonf@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/solicitudes/solicitar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "solicitudes",
+                "solicitar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin - Aprobar recuperaciones",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI4Mjk3NjgsImV4cCI6MTc3MjgzMzM2OH0.XtWTbfVxQpr-B4HB5WxcAMw_cSz_OqUuQKkg7sNXNK0",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/solicitudes/1/aprobar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "solicitudes",
+                "1",
+                "aprobar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin - Reenviar correo",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI5MDg1NTcsImV4cCI6MTc3MjkxMjE1N30.oLCFB7aG1zU1msqnInnpYB2ttzkMz0bN4MegysEX6PQ",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/solicitudes/{id}/reenviar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "solicitudes",
+                "{id}",
+                "reenviar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Usuarios - restablecer contraseña",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"correoOUsuario\": \"ruizjeisonf@gmail.com\",\r\n    \"codigo\": \"747614\",\r\n    \"nuevaContrasena\": \"nueva_123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/solicitudes/restablecer",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "solicitudes",
+                "restablecer"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Todos -Login",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"correoElectronico\": \"ruizjeisonf@gmail.com\",\r\n  \"contrasena\": \"nueva_123\"\r\n}\r\n/*\r\n{\r\n  \"correoElectronico\": \"admin01@empresa.com\",\r\n  \"contrasena\": \"admin_123\"\r\n}*/\r\n",
+          "raw": "{\r\n  \"correoElectronico\": \"admin_01\",\r\n  \"contrasena\": \"admin_123\"\r\n}\r\n\r\n/*\r\n\r\n\r\n{\r\n  \"correoElectronico\": \"ruizjeisonf@gmail.com\",\r\n  \"contrasena\": \"usuario_123\"\r\n}\r\n\r\n\r\n\r\n\r\n\r\n{\r\n  \"correoElectronico\": \"juniorabelcordova@gmail.com\",\r\n  \"contrasena\": \"usuario_456\"\r\n}\r\n\r\n{\r\n  \"correoElectronico\": \"equispetapia8@gmail.com@gmail.com\",\r\n  \"contrasena\": \"usuario_789\"\r\n}\r\n\r\n{\r\n  \"correoElectronico\": \"juniorabelcordova@gmail.com\",\r\n  \"contrasena\": \"usuario_456\"\r\n}\r\n*/\r\n\r\n\r\n",
           "options": {
             "raw": {
               "language": "json"
@@ -21,12 +324,13 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/auth/login",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/auth/login",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "auth",
             "login"
@@ -42,17 +346,18 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk0MjkxMywiZXhwIjoxNzcxOTQ2NTEzfQ.EU7YcmAxpKmDnIpEKrJG7QRLn5Q460at5iEIrVkITos",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI5MDM0MTksImV4cCI6MTc3MjkwNzAxOX0.zJf9sKMU5Q0LXh6EREEqFIr_T_PPOT31qF6rcobEA8o",
             "type": "text"
           }
         ],
         "url": {
-          "raw": "http://localhost:8080/api/usuarios",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/api/usuarios",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "api",
             "usuarios"
@@ -68,17 +373,18 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk5MjQwNiwiZXhwIjoxNzcxOTk2MDA2fQ.M9t4scVZ6z4jmY-9_fHN4SJuBi8b3pkKlFwKstNfNWY",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI5Mzk0NTYsImV4cCI6MTc3Mjk0MzA1Nn0.ATuQWZdrys-MnqWjRA5UFwvdHElfg2Fvt4BbF8Kk37w",
             "type": "text"
           }
         ],
         "url": {
-          "raw": "http://localhost:8080/api/solicitudes/pendientes",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/api/solicitudes/pendientes",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "api",
             "solicitudes",
@@ -95,17 +401,18 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk5NTM5OSwiZXhwIjoxNzcxOTk4OTk5fQ.bdcSAFmNhjJXpsBqkEyUlE9cL0bXvxS_JG9X_XsvdJA",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI5Mzk0NTYsImV4cCI6MTc3Mjk0MzA1Nn0.ATuQWZdrys-MnqWjRA5UFwvdHElfg2Fvt4BbF8Kk37w",
             "type": "text"
           }
         ],
         "url": {
-          "raw": "http://localhost:8080/api/solicitudes",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/api/solicitudes",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "api",
             "solicitudes"
@@ -121,17 +428,18 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk0MjkxMywiZXhwIjoxNzcxOTQ2NTEzfQ.EU7YcmAxpKmDnIpEKrJG7QRLn5Q460at5iEIrVkITos",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI5MDM0MTksImV4cCI6MTc3MjkwNzAxOX0.zJf9sKMU5Q0LXh6EREEqFIr_T_PPOT31qF6rcobEA8o",
             "type": "text"
           }
         ],
         "url": {
-          "raw": "http://localhost:8080/api/usuarios/3/desbloquear",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/api/usuarios/3/desbloquear",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "api",
             "usuarios",
@@ -149,17 +457,18 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MTk0MjkxMywiZXhwIjoxNzcxOTQ2NTEzfQ.EU7YcmAxpKmDnIpEKrJG7QRLn5Q460at5iEIrVkITos",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI5MDM0MTksImV4cCI6MTc3MjkwNzAxOX0.zJf9sKMU5Q0LXh6EREEqFIr_T_PPOT31qF6rcobEA8o",
             "type": "text"
           }
         ],
         "url": {
-          "raw": "http://localhost:8080/api/usuarios/3/bloquear",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/api/usuarios/3/bloquear",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "api",
             "usuarios",
@@ -185,12 +494,13 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/api/solicitudes/solicitar",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/api/solicitudes/solicitar",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "api",
             "solicitudes",
@@ -207,7 +517,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiYWRtaW4wMUBlbXByZXNhLmNvbSIsImlhdCI6MTc3MjQ2NzM5MCwiZXhwIjoxNzcyNDcwOTkwfQ.CoBNB4M9xfIwtjFvp3tp0FKQtO19k98AWZVWv23yg20",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI5MDg1NTcsImV4cCI6MTc3MjkxMjE1N30.oLCFB7aG1zU1msqnInnpYB2ttzkMz0bN4MegysEX6PQ",
             "type": "text"
           }
         ],
@@ -221,17 +531,56 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/api/solicitudes/1/aprobar",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/api/solicitudes/2/aprobar",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "api",
             "solicitudes",
-            "1",
+            "2",
             "aprobar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin - Reenviar correo",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2wiOiJST0xFX0FETUlOIiwic3ViIjoiam9zZWdiZW5pdGVzbUBnbWFpbC5jb20iLCJpYXQiOjE3NzI5MDg1NTcsImV4cCI6MTc3MjkxMjE1N30.oLCFB7aG1zU1msqnInnpYB2ttzkMz0bN4MegysEX6PQ",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://idati-test.onrender.com/api/solicitudes/{id}/reenviar",
+          "protocol": "https",
+          "host": [
+            "idati-test",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "solicitudes",
+            "{id}",
+            "reenviar"
           ]
         }
       },
@@ -244,7 +593,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"correoOUsuario\": \"ruizjeisonf@gmail.com\",\r\n    \"codigo\": \"475515\",\r\n    \"nuevaContrasena\": \"nueva_123\"\r\n}",
+          "raw": "{\r\n    \"correoOUsuario\": \"juniorabelcordova@gmail.com\",\r\n    \"codigo\": \"568114\",\r\n    \"nuevaContrasena\": \"nueva_123\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -252,12 +601,13 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/api/solicitudes/restablecer",
-          "protocol": "http",
+          "raw": "https://idati-test.onrender.com/api/solicitudes/restablecer",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "idati-test",
+            "onrender",
+            "com"
           ],
-          "port": "8080",
           "path": [
             "api",
             "solicitudes",
