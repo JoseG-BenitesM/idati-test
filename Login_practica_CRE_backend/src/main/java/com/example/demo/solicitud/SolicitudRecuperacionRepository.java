@@ -22,5 +22,5 @@ public interface SolicitudRecuperacionRepository extends JpaRepository<Solicitud
     List<SolicitudRecuperacionEntity> findByEstadoIn(List<Byte> estados);
     
     long countByUsuarioIdAndFechaSolicitudAfter(
-            Integer idUsuario, LocalDateTime fecha);
+            Integer idUsuario, Byte estado,  LocalDateTime fecha);
 }
