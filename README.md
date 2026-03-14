@@ -105,7 +105,7 @@ Ejecutar el script SQL incluido en el repositorio. Tablas: `usuarios`, `roles`, 
 
 ---
 
-## Usuarios de prueba
+## Usuarios de prueba (predeterminados)
 
 | Usuario | Correo | Contraseña | Rol |
 |---|---|---|---|
