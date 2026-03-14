@@ -1,0 +1,46 @@
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="card shadow" style="width: 100%; max-width: 420px;">
+
+    <div class="card-header bg-primary text-white text-center py-4">
+      <h4 class="mb-0 fw-bold">IDATI CRE</h4>
+      <small>Sistema de Gestión</small>
+    </div>
+
+    <div class="card-body p-4">
+      <h5 class="card-title text-center mb-4">Iniciar Sesión</h5>
+
+      <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> {{ error }}
+        <button type="button" class="btn-close" (click)="error=''"></button>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Usuario o Correo</label>
+        <input type="text" class="form-control" placeholder="Ingresa tu usuario o correo"
+          [(ngModel)]="correoElectronico" (keyup.enter)="login()" />
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Contraseña</label>
+        <div class="input-group">
+          <input [type]="verContrasena ? 'text' : 'password'" class="form-control" placeholder="Ingresa tu contraseña"
+            [(ngModel)]="contrasena" (keyup.enter)="login()" />
+          <button class="btn btn-outline-secondary" type="button" (click)="toggleContrasena()">
+            {{ verContrasena ? '🙈' : '👁️' }}
+          </button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary w-100 mb-3" (click)="login()" [disabled]="cargando">
+        <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
+        {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+      </button>
+
+      <div class="text-center">
+        <a class="text-decoration-none text-muted small" style="cursor:pointer" (click)="irRecuperar()">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

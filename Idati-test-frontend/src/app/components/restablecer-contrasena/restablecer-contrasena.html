@@ -1,0 +1,69 @@
+<div class="container-fluid vh-100 d-flex align-items-center
+            justify-content-center bg-light">
+  <div class="card shadow" style="width: 100%; max-width: 420px;">
+
+    <div class="card-header bg-success text-white text-center py-4">
+      <h4 class="mb-0 fw-bold">IDATI CRE</h4>
+      <small>Restablecer contraseña</small>
+    </div>
+
+    <div class="card-body p-4">
+      <h5 class="card-title text-center mb-4">Nueva contraseña</h5>
+
+      <!-- Mensaje éxito -->
+      <div *ngIf="exitoso" class="alert alert-success text-center">
+        <p class="fw-bold mb-2">✅ {{ mensaje }}</p>
+        <p class="small mb-3">Ya puedes iniciar sesión con tu nueva contraseña.</p>
+        <button class="btn btn-success btn-sm" (click)="volverLogin()">
+          Ir al login
+        </button>
+      </div>
+
+      <!-- Mensaje error -->
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+
+      <!-- Formulario -->
+      <div *ngIf="!exitoso">
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Correo o Usuario</label>
+          <input type="text" class="form-control" placeholder="Ingresa tu correo o usuario"
+            [(ngModel)]="correoOUsuario" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Código de recuperación</label>
+          <input type="text" class="form-control" placeholder="Ingresa el código de 6 dígitos" [(ngModel)]="codigo"
+            maxlength="6" />
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Nueva contraseña</label>
+          <div class="input-group">
+            <input [type]="verContrasena ? 'text' : 'password'" class="form-control" placeholder="Mínimo 6 caracteres"
+              [(ngModel)]="nuevaContrasena" (keyup.enter)="restablecer()" />
+            <button class="btn btn-outline-secondary" type="button" (click)="toggleContrasena()">
+              {{ verContrasena ? '🙈' : '👁️' }}
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn-success w-100 mb-3" (click)="restablecer()" [disabled]="cargando">
+          <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2">
+          </span>
+          {{ cargando ? 'Procesando...' : 'Restablecer contraseña' }}
+        </button>
+
+      </div>
+
+      <div class="text-center mt-2">
+        <a style="cursor:pointer" class="text-decoration-none text-muted small" (click)="volverLogin()">
+          ← Volver al login
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

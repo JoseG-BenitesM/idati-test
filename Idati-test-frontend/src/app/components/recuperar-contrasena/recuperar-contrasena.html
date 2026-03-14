@@ -1,0 +1,63 @@
+<div class="container-fluid vh-100 d-flex align-items-center
+            justify-content-center bg-light">
+  <div class="card shadow" style="width: 100%; max-width: 420px;">
+
+    <div class="card-header bg-warning text-dark text-center py-4">
+      <h4 class="mb-0 fw-bold">IDATI CRE</h4>
+      <small>Recuperar contraseña</small>
+    </div>
+
+    <div class="card-body p-4">
+      <h5 class="card-title text-center mb-2">¿Olvidaste tu contraseña?</h5>
+      <p class="text-muted text-center small mb-4">
+        Ingresa tu correo o usuario y te enviaremos un código
+        o notificaremos al administrador.
+      </p>
+
+      <!-- Mensaje éxito -->
+      <div *ngIf="mensaje" class="alert alert-success" role="alert">
+        {{ mensaje }}
+        <hr>
+        <p class="mb-0 small">
+          ¿Ya tienes el código?
+          <a href="#" (click)="irRestablecer()" class="fw-bold">
+            Restablecer contraseña
+          </a>
+        </p>
+      </div>
+
+      <!-- Mensaje error -->
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+
+      <!-- Formulario -->
+      <div *ngIf="!mensaje">
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Correo o Usuario</label>
+          <input type="text" class="form-control" placeholder="Ingresa tu correo o usuario" [(ngModel)]="correoOUsuario"
+            (keyup.enter)="solicitar()" />
+        </div>
+
+        <div class="text-center mb-3">
+          <a style="cursor:pointer" class="text-decoration-none small text-success fw-semibold"
+            (click)="irRestablecer()">
+            ¿Ya tienes el código? Restablecer contraseña →
+          </a>
+        </div>
+        <button class="btn btn-warning w-100 mb-3" (click)="solicitar()" [disabled]="cargando">
+          <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2">
+          </span>
+          {{ cargando ? 'Enviando...' : 'Solicitar recuperación' }}
+        </button>
+      </div>
+
+      <div class="text-center mt-2">
+        <a href="#" class="text-decoration-none text-muted small" (click)="volverLogin()">
+          ← Volver al login
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

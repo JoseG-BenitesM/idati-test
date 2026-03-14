@@ -1,0 +1,53 @@
+<nav class="navbar navbar-dark bg-primary px-4">
+  <span class="navbar-brand fw-bold">IDATI CRE — Admin</span>
+  <div class="d-flex align-items-center gap-3">
+    <span class="text-white small">👤 {{ usuario }}</span>
+    <button class="btn btn-outline-light btn-sm" (click)="logout()">
+      Cerrar sesión
+    </button>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h3 class="fw-bold">Bienvenido, {{ usuario }}</h3>
+    <p class="text-muted">Panel de administración — ¿Qué deseas gestionar?</p>
+  </div>
+
+  <div class="row justify-content-center g-4">
+
+    <div class="col-md-4">
+      <div class="card shadow h-100 text-center p-4" style="cursor:pointer" (click)="irGestionUsuarios()">
+        <div class="mb-3" style="font-size: 3rem;">👥</div>
+        <h5 class="fw-bold">Gestión de Usuarios</h5>
+        <p class="text-muted small">
+          Visualiza, bloquea y desbloquea usuarios del sistema.
+        </p>
+        <button class="btn btn-primary mt-auto">Ir a Usuarios</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow h-100 text-center p-4" style="cursor:pointer" (click)="irGestionSolicitudes()">
+        <div class="mb-3" style="font-size: 3rem;">📋</div>
+        <h5 class="fw-bold">Solicitudes Pendientes</h5>
+        <p class="text-muted small">
+          Aprueba solicitudes de recuperación de contraseña.
+        </p>
+        <button class="btn btn-warning mt-auto">Ver Solicitudes</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow h-100 text-center p-4" style="cursor:pointer" (click)="irHistorial()">
+        <div class="mb-3" style="font-size: 3rem;">📁</div>
+        <h5 class="fw-bold">Historial</h5>
+        <p class="text-muted small">
+          Consulta el historial completo de solicitudes procesadas.
+        </p>
+        <button class="btn btn-secondary mt-auto">Ver Historial</button>
+      </div>
+    </div>
+
+  </div>
+</div>
