@@ -37,7 +37,8 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
         // 1. Verificar límite de 3 solicitudes en la última hora (anti-spam)
         LocalDateTime haceUnaHora = LocalDateTime.now().minusHours(1);
         long solicitudesRecientes = solicitudRepository
-                .countByUsuarioIdAndFechaSolicitudAfter(usuario.getId(), (byte) 2, haceUnaHora);
+                .countByUsuarioIdAndEstadoNotAndFechaSolicitudAfter(
+                        usuario.getId(), (byte) 2, haceUnaHora);
         
         if(solicitudesRecientes >= 3) {
             throw new RuntimeException("LIMITE_SOLICITUDES_ALCANZADO");
