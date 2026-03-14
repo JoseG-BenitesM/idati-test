@@ -27,7 +27,8 @@ public class SolicitudRecuperacionServiceImpl implements SolicitudRecuperacionSe
     @Override
     @Transactional
     public SolicitudRecuperacionEntity solicitarRecuperacion(String correoOUsuario) {
-        
+
+        log.info("Buscando usuario: {}", correoOUsuario);
         UsuarioEntity usuario = usuarioRepository
                 .findByCorreoElectronico(correoOUsuario)
                 .or(() -> usuarioRepository.findByUsuarioNombre(correoOUsuario))
